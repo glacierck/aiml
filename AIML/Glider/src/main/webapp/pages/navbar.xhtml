@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:components="http://java.sun.com/jsf/composite/components"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <h:outputStylesheet library="css" name="bootstrap.min.css" />
+
+    </h:head>
+
+    <p:tabView>
+        <p:tab title="PreProcessor">
+            <p:layout style="min-width:400px;min-height:600px;" id="mainLayout" fullPage="false">
+                <p:layoutUnit position="north">
+                    <p:panelGrid columns="4">
+
+                        <components:uploader />
+
+                        <components:fileLoader/>
+                        <h:outputText value="Edit" />
+                        <h:outputText value="Save" />
+
+                    </p:panelGrid>
+                </p:layoutUnit>
+                <p:layoutUnit position="west" resizable="true" size="100" minSize="40" maxSize="200">
+                    <p:layout id="westLayout">
+                        <p:layoutUnit position="north" id="wnorth">wNorth</p:layoutUnit>
+                        <p:layoutUnit position="center" id="wcenter">wCenter</p:layoutUnit>
+                        <p:layoutUnit position="south" id="wsouth">wSouth</p:layoutUnit>
+                    </p:layout>
+                </p:layoutUnit>
+                <p:layoutUnit position="east">
+                    East
+                </p:layoutUnit>
+                <p:layoutUnit position="center">
+                    <components:dataFilesList rendered="#{mlBean.showFiles}"/>
+                </p:layoutUnit>
+                <p:layoutUnit position="south">
+                    South
+                </p:layoutUnit>
+            </p:layout>
+        </p:tab>
+        <p:tab title="Godfather Part II">
+
+        </p:tab>
+        <p:tab title="Godfather Part III">
+
+        </p:tab>
+    </p:tabView>
+
+
+</html>

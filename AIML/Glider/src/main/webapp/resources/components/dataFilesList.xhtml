@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.org/ui">
+
+    <composite:interface>
+
+    </composite:interface>
+
+    <composite:implementation>
+        <h:form id="dataFilesForm">  
+            <h:dataTable value="#{mlBean.filesInDir}" var="f" styleClass="table table-striped">
+                <f:facet name="header">Data Files</f:facet>
+                <h:column>
+                    <f:facet name="header">File</f:facet>
+                        #{f}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Acção</f:facet>
+                    <h:commandLink value="Load File" action="#{preProcessorBean.loadFile(f)}" />
+                </h:column>
+            </h:dataTable>
+        </h:form>
+    </composite:implementation>
+</html>
+
+
+

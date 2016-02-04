@@ -28,7 +28,7 @@ public class GradientDescentTest extends TestCase {
     private Matrix aMulti;
     private Matrix featuresX;
     private Matrix outputY;
-    final String path = "/home/manuel/Documents/MachineLearning/MLCoursera/machine-learning-ex1/ex1/";
+    final static String path = "/home/manuel/Documents/MachineLearning/MLCoursera/machine-learning-ex1/ex1/";
 
     @Override
     protected void setUp() throws Exception {
@@ -106,8 +106,6 @@ public class GradientDescentTest extends TestCase {
 
     }
     
-    public static void main(String[] args){
-        
-    }
+    
 
 }

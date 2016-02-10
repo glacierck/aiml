@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import pt.mleiria.EnvSettings;
@@ -48,9 +49,11 @@ public class PreProcessorBean extends MachineLearningBean {
         }
         if (fileName.equals("ex1data1.txt")) {
             HeaderObjectMapper hom = UtilsVO.loadFileToObjMapper(EnvSettings.DATA_DIR + fileName, ",", true, true);
+            
+            
             for(GenericObj go : hom.getLst()){
                 Object[] objl = go.getValues();
-                LOG.info(Double.parseDouble(objl[0].toString()) + ";" + Double.parseDouble(objl[1].toString()));
+                LOG.log(Level.INFO, "{0};{1}", new Object[]{Double.parseDouble(objl[0].toString()), Double.parseDouble(objl[1].toString())});
             }
         }
     }

@@ -57,12 +57,14 @@ public class UtilsVO {
         }
         br.close();
         String[] header = null;
+        String[] qualifier = null;
         int i = 0;
         if(hasHeader){
             header = rows.get(0);
             i++;
         }
         if (hasQualifier){
+            qualifier = rows.get(1);
             i++;
         }
         List<GenericObj> lst = new ArrayList<GenericObj>(rows.size() - i);
@@ -70,7 +72,7 @@ public class UtilsVO {
             GenericObj go = new GenericObj(rows.get(j));
             lst.add(go);
         }
-        return new HeaderObjectMapper(header, lst);
+        return new HeaderObjectMapper(header, qualifier, lst);
         
         
     }

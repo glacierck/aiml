@@ -108,7 +108,7 @@ public class MachineLearningBean {
     }
 
     /**
-     * @param file1 the dataFile to set
+     * @param dataFile
      */
     public void setDataFile(Part dataFile) {
         this.dataFile = dataFile;

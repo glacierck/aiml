@@ -5,45 +5,79 @@
  */
 package pt.mleiria.ml.vo;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
  * @author manuel
  */
 public class HeaderObjectMapper {
-    
+    /**
+     * O nome das colunas
+     */
     private final String[] header;
+    /**
+     * O tipo de dados
+     * Pode ser numeric ou nominal
+     */
+    private final String[] qualifier;
+    /**
+     * Os dados
+     */
     private final List<GenericObj> lst;
+    /**
+     * A quantidade de dados
+     */
     private final int instances;
+    /**
+     * O número de colunas
+     */
     private final int attributes;
 
-    public HeaderObjectMapper(String[] header, List<GenericObj> lst) {
+    public HeaderObjectMapper(String[] header,String[] qualifier, List<GenericObj> lst) {
         this.header = header;
         this.lst = lst;
         this.instances = lst.size();
         this.attributes = header.length;
-        
+        this.qualifier = qualifier;
     }
-
+    /**
+     * 
+     * @return data size
+     */
     public int getInstances() {
         return instances;
     }
-
+    /**
+     * 
+     * @return number of columns
+     */
     public int getAttributes() {
         return attributes;
     }
-
+    /**
+     * 
+     * @return names of the columns
+     */
     public String[] getHeader() {
         return header;
     }
-
+    /**
+     * 
+     * @return the data
+     */
     public List<GenericObj> getLst() {
         return lst;
     }
+    /**
+     * 
+     * @return data type (nominal or numeric)
+     */
+    public String[] getQualifier() {
+        return qualifier;
+    }
 
+    
     
     
     

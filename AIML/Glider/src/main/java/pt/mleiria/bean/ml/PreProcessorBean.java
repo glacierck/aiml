@@ -29,16 +29,17 @@ import pt.mleiria.vo.UtilsVO;
 public class PreProcessorBean extends MachineLearningBean {
 
     private List<CsvTable> dataList;
-    private final ObjectMapper mapper = new ObjectMapper();
+
+    protected HeaderObjectMapper hom;
+    protected String fileName;
 
     public PreProcessorBean() {
-
     }
 
     public void loadFile(final String fileName) throws IOException {
-
+        this.fileName = fileName;
         if (fileName.equals("TruckBusinessVO.json")) {
-
+            ObjectMapper mapper = new ObjectMapper();
             dataList = mapper.readValue(new File(EnvSettings.DATA_DIR + fileName),
                     new TypeReference<List<TruckBusinessVO>>() {
                     });
@@ -48,13 +49,15 @@ public class PreProcessorBean extends MachineLearningBean {
             }
         }
         if (fileName.equals("ex1data1.txt")) {
-            HeaderObjectMapper hom = UtilsVO.loadFileToObjMapper(EnvSettings.DATA_DIR + fileName, ",", true, true);
-            
-            
-            for(GenericObj go : hom.getLst()){
+            hom = UtilsVO.loadFileToObjMapper(EnvSettings.DATA_DIR + fileName, ",", true, true);
+            LOG.info("HOM loaded");
+            /*
+            for (GenericObj go : hom.getLst()) {
                 Object[] objl = go.getValues();
                 LOG.log(Level.INFO, "{0};{1}", new Object[]{Double.parseDouble(objl[0].toString()), Double.parseDouble(objl[1].toString())});
+                
             }
+                    */
         }
     }
 

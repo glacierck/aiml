@@ -32,7 +32,6 @@ public class MachineLearningBean {
     protected final static Logger LOG = Logger.getLogger(MachineLearningBean.class.getName());
 
     private Part dataFile;  
-    private final List<String[]> dataList = new ArrayList<String[]>();
     protected String fname;
     private boolean showFiles;
     

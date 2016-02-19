@@ -10,12 +10,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Level;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import pt.mleiria.EnvSettings;
 import pt.mleiria.ml.vo.CsvTable;
-import pt.mleiria.ml.vo.GenericObj;
 import pt.mleiria.ml.vo.HeaderObjectMapper;
 import pt.mleiria.ml.vo.TruckBusinessVO;
 import pt.mleiria.vo.UtilsVO;
@@ -26,7 +24,7 @@ import pt.mleiria.vo.UtilsVO;
  */
 @ManagedBean(name = "preProcessorBean")
 @SessionScoped
-public class PreProcessorBean extends MachineLearningBean {
+public class PreProcessorBean extends MachineLearningBean{
 
     private List<CsvTable> dataList;
 
@@ -57,7 +55,7 @@ public class PreProcessorBean extends MachineLearningBean {
                 LOG.log(Level.INFO, "{0};{1}", new Object[]{Double.parseDouble(objl[0].toString()), Double.parseDouble(objl[1].toString())});
                 
             }
-                    */
+            */
         }
     }
 

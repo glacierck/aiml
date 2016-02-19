@@ -24,24 +24,28 @@
 
                     </p:panelGrid>
                 </p:layoutUnit>
-                <p:layoutUnit position="west" resizable="true" size="200" minSize="100" maxSize="300">
-                    <p:layout id="westLayout">
-                        <p:layoutUnit position="north" id="wnorth">
-                            <components:currentData/>
-                        </p:layoutUnit>
-                        <p:layoutUnit position="center" id="wcenter">wCenter</p:layoutUnit>
-                        <p:layoutUnit position="south" id="wsouth">wSouth</p:layoutUnit>
-                    </p:layout>
-                </p:layoutUnit>
-                <p:layoutUnit position="east">
-                    East
-                </p:layoutUnit>
-                <p:layoutUnit position="center">
-                    <components:dataFilesList rendered="#{mlBean.showFiles}"/>
-                </p:layoutUnit>
-                <p:layoutUnit position="south">
-                    South
-                </p:layoutUnit>
+                <h:form>
+                    <p:layoutUnit position="west" resizable="true" size="200" minSize="100" maxSize="300">
+                        <p:layout id="westLayout">
+                            <p:layoutUnit position="north" id="wnorth">
+                                <components:currentData/>
+                            </p:layoutUnit>
+                            <p:layoutUnit position="center" id="wcenter">
+                                <components:currentAttributes/>
+                            </p:layoutUnit>
+                            <p:layoutUnit position="south" id="wsouth">wSouth</p:layoutUnit>
+                        </p:layout>
+                    </p:layoutUnit>
+                    <p:layoutUnit position="east">
+                        East
+                    </p:layoutUnit>
+                    <p:layoutUnit position="center">
+                        <components:dataFilesList rendered="#{mlBean.showFiles}"/>
+                    </p:layoutUnit>
+                    <p:layoutUnit position="south">
+                        South
+                    </p:layoutUnit>
+                </h:form>
             </p:layout>
         </p:tab>
         <p:tab title="Godfather Part II">

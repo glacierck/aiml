@@ -33,7 +33,7 @@ public class MachineLearningBean {
 
     private Part dataFile;  
     protected String fname;
-    private boolean showFiles;
+    private static boolean showFiles;
     
 
     public MachineLearningBean() {
@@ -94,6 +94,7 @@ public class MachineLearningBean {
     }
 
     public String selectFile(){
+        LOG.info("selectFile:"+showFiles);
         showFiles = true;
         return "";
     }
@@ -112,11 +113,23 @@ public class MachineLearningBean {
     public void setDataFile(Part dataFile) {
         this.dataFile = dataFile;
     }
-
+    /**
+     * 
+     * @return 
+     */
     public boolean isShowFiles() {
+        LOG.info("isShowFiles:" + showFiles);
         return showFiles;
     }
-
+    /**
+     * 
+     * @param showFiles 
+     */
+    public void setShowFiles(boolean showFiles) {
+        LOG.info("setShowFiles:" + showFiles);
+        this.showFiles = showFiles;
+    }
+    
     
     
 }

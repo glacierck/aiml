@@ -42,7 +42,7 @@ public class FeatNormMinMax implements FeatureNormalization {
             for (int j = 0; j < rows; j++) {
                 colVector[j] = matrix.component(j, i);
             }
-            double[] menorMaior = getMenorMaior(colVector);
+            double[] menorMaior = getMinMax(colVector);
             for (int j = 0; j < rows; j++) {
                 newComponents[j][i] = min + 
                                         ((matrix.component(j, i) - menorMaior[0]) / 
@@ -60,7 +60,7 @@ public class FeatNormMinMax implements FeatureNormalization {
      * @param column
      * @return a double[2] with Menor in double[0] and Maior in double[1]
      */
-    private double[] getMenorMaior(final double[] column) {
+    private double[] getMinMax(final double[] column) {
         final double[] tmpArr = column;
         Arrays.sort(tmpArr);
         final double[] result = new double[2];

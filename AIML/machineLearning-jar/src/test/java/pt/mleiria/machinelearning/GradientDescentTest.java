@@ -10,10 +10,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import junit.framework.Assert;
 import junit.framework.TestCase;
+import pt.mleiria.EnvSettings;
 import pt.mleiria.machinelearning.iterations.GradientDescent;
 import pt.mleiria.machinelearning.matrixAlgebra.Matrix;
+import pt.mleiria.machinelearning.preprocess.DataSet2Matrix;
 import pt.mleiria.machinelearning.preprocess.FeatNormMeanStdev;
 import pt.mleiria.machinelearning.preprocess.FeatureNormalization;
+import pt.mleiria.ml.core.GenericDataSet;
+import pt.mleiria.ml.core.TextDataSet;
 import pt.mleiria.utils.ioutils.IOUtils;
 import pt.mleiria.utils.viewutils.ViewUtils;
 
@@ -28,24 +32,39 @@ public class GradientDescentTest extends TestCase {
     private Matrix aMulti;
     private Matrix featuresX;
     private Matrix outputY;
-    final static String path = "/home/manuel/Documents/MachineLearning/MLCoursera/machine-learning-ex1/ex1/";
-
+    //final static String path = "/home/manuel/Documents/Coursera/MachineLearning/MLCoursera/machine-learning-ex1/ex1/";
+    final static String path = EnvSettings.DATA_DIR;
+    private GenericDataSet ds;
+    
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        double[][] components;
+        
+        String separator = ",";
+               
+        //double[][] components;
         double[][] componentsMulti;
         try {
-            components = IOUtils.loadFileToComponents(path +"ex1data1.txt", ",");
-            a = new Matrix(components);
-            componentsMulti = IOUtils.loadFileToComponents(path + "ex1data2.txt", ",");
-            aMulti = new Matrix(componentsMulti);
+            //components = IOUtils.loadFileToComponents(path +"ex1data1.txt", ",");
+            //a = new Matrix(components);
+            
+            ds = new TextDataSet(separator, EnvSettings.EX1DATA1);
+            ds.loadData();
+            a = DataSet2Matrix.transform(ds.getFeatureList());
+            LOGGER.log(Level.INFO,"EX1DATA1:{0}", a.toString());
+            //componentsMulti = IOUtils.loadFileToComponents(path + "ex1data2.txt", ",");
+            //aMulti = new Matrix(componentsMulti);
+            ds = new TextDataSet(separator, EnvSettings.EX1DATA2);
+            ds.loadData();
+            aMulti = DataSet2Matrix.transform(ds.getFeatureList());
+            LOGGER.log(Level.INFO, "EX1DATA2:{0}", aMulti.toString());
+            
             
             Matrix[] splitedM = aMulti.split(1);
             featuresX = splitedM[0];
             outputY = splitedM[1];
 
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             LOGGER.log(Level.SEVERE, null, ex);
         }
 

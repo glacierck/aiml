@@ -11,15 +11,19 @@
     </composite:interface>
 
     <composite:implementation>
-            <h:dataTable value="#{currentDataBean.attributesList}" var="al" styleClass="table table-striped">
-                <f:facet name="header">Attributes</f:facet>
-                <h:column>
-                    <h:selectOneRadio>
-                        <f:selectItem  itemLabel="#{al}" itemValue="#{al}" ></f:selectItem>
-                    </h:selectOneRadio>
-                </h:column>
-                
-            </h:dataTable>
+        <p:panelGrid columns="1">
+            <f:facet name="header">
+                <h:outputText value="Attributes" />
+            </f:facet>
+            <h:selectOneRadio layout="pageDirection" value="#{currentDataBean.selFeatureName}" id="selFName">
+                <f:selectItems value="#{currentDataBean.featureNames}" var="al"  itemLabel="#{al}" itemValue="#{al}"></f:selectItems>
+                <f:ajax execute="@this" render="tview:frm:saId:selectedAttName tview:frm:saId:selectedAttType tview:frm:saId:selectedAttDistinct tview:frm:saId:selectedAttUnique tview:frm:saId:selectedAttMin tview:frm:saId:selectedAttMax tview:frm:saId:selectedAttMean tview:frm:saId:selectedAttStDev"/>
+            </h:selectOneRadio>
+        </p:panelGrid>
+        
+
+
+        
     </composite:implementation>
 </html>
 

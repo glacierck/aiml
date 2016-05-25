@@ -420,6 +420,18 @@ public class Matrix {
             }
         }
     }
+    
+    public double[] getColumn(int colIndex){
+        int n = rows();
+        if (colIndex > columns()){
+            throw new IllegalArgumentException("Column Index provided is greater than matrix number of columns");
+        }
+        double[] colArray = new double[n];
+        for (int i = 0; i < n; i++) {
+            colArray[i] = component(i, colIndex);
+        }
+        return colArray;
+    }
 
     public static void main(String[] args) {
         Matrix m = new Matrix(3, 4);

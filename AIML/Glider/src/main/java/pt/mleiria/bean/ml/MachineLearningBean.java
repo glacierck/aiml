@@ -19,7 +19,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.Part;
 import pt.mleiria.EnvSettings;
-
+import pt.mleiria.ml.core.GenericDataSet;
 
 /**
  *
@@ -31,20 +31,22 @@ public class MachineLearningBean {
 
     protected final static Logger LOG = Logger.getLogger(MachineLearningBean.class.getName());
 
-    private Part dataFile;  
+    protected GenericDataSet ds;
+    private Part dataFile;
     protected String fname;
     private static boolean showFiles;
-    
+    private static boolean showPreProcessChart;
 
     public MachineLearningBean() {
         showFiles = false;
+        showPreProcessChart = false;
     }
-    
-    
+
     /**
      * Upload file to server
+     *
      * @return
-     * @throws IOException 
+     * @throws IOException
      */
     public String upload() throws IOException {
         this.fname = getFilename(getDataFile());
@@ -86,19 +88,23 @@ public class MachineLearningBean {
         final File folder = new File(EnvSettings.DATA_DIR);
         final List<String> files = new ArrayList<String>();
         for (final File fileEntry : folder.listFiles()) {
-            if (fileEntry.isFile()){
+            if (fileEntry.isFile()) {
                 files.add(fileEntry.getName());
             }
         }
         return files;
     }
 
-    public String selectFile(){
-        LOG.info("selectFile:"+showFiles);
+    /**
+     * Button to load the file list
+     *
+     * @return
+     */
+    public String selectFile() {
         showFiles = true;
+        showPreProcessChart = false;
         return "";
     }
-    
 
     /**
      * @return the dataFile
@@ -113,23 +119,37 @@ public class MachineLearningBean {
     public void setDataFile(Part dataFile) {
         this.dataFile = dataFile;
     }
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public boolean isShowFiles() {
-        LOG.info("isShowFiles:" + showFiles);
         return showFiles;
     }
+
     /**
-     * 
-     * @param showFiles 
+     *
+     * @param sf
      */
-    public void setShowFiles(boolean showFiles) {
-        LOG.info("setShowFiles:" + showFiles);
-        this.showFiles = showFiles;
+    public void setShowFiles(boolean sf) {
+        showFiles = sf;
     }
-    
-    
-    
+
+    /**
+     *
+     * @param sppc
+     */
+    public void setShowPreProcessChart(boolean sppc) {
+        showPreProcessChart = sppc;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public boolean isShowPreProcessChart() {
+        return showPreProcessChart;
+    }
+
 }

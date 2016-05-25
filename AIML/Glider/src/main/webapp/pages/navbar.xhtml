@@ -10,8 +10,8 @@
 
     </h:head>
 
-    <p:tabView>
-        <p:tab title="PreProcessor">
+    <p:tabView id="tview">
+        <p:tab title="PreProcessor" id="preProcessor">
             <p:layout style="min-width:400px;min-height:600px;" id="mainLayout" fullPage="false">
                 <p:layoutUnit position="north">
                     <p:panelGrid columns="4">
@@ -24,8 +24,8 @@
 
                     </p:panelGrid>
                 </p:layoutUnit>
-                <h:form>
-                    <p:layoutUnit position="west" resizable="true" size="200" minSize="100" maxSize="300">
+                <h:form id="frm">
+                    <p:layoutUnit id="luWest" position="west" resizable="true" size="200" minSize="100" maxSize="300">
                         <p:layout id="westLayout">
                             <p:layoutUnit position="north" id="wnorth">
                                 <components:currentData/>
@@ -36,13 +36,14 @@
                             <p:layoutUnit position="south" id="wsouth">wSouth</p:layoutUnit>
                         </p:layout>
                     </p:layoutUnit>
-                    <p:layoutUnit position="east">
-                        East
+                    <p:layoutUnit id="luEast" position="east">
+                        <components:selectedAttribute id="saId"/>
                     </p:layoutUnit>
-                    <p:layoutUnit position="center">
+                    <p:layoutUnit id="luCenter" position="center">
                         <components:dataFilesList rendered="#{mlBean.showFiles}"/>
+                        <components:lineChart rendered="#{mlBean.showPreProcessChart}" id="lcId"/>
                     </p:layoutUnit>
-                    <p:layoutUnit position="south">
+                    <p:layoutUnit id="luSouth" position="south">
                         South
                     </p:layoutUnit>
                 </h:form>

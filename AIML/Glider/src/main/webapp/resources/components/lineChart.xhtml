@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:p="http://primefaces.org/ui">
+
+    <composite:interface>
+
+    </composite:interface>
+
+    <composite:implementation>
+        <!--h:panelGrid columns="1" cellpadding="5"-->
+            <p:chart type="line" model="#{currentDataBean.lineModel1}" id="lineModel1"/>
+            
+            <p:selectOneMenu id="selAttribute" value="#{currentDataBean.selFeatureNameLessY}">
+                <p:ajax listener="#{currentDataBean.onAttChange}" update="lineModel1" />
+                <f:selectItems value="#{currentDataBean.featureNamesLessY}" />
+            </p:selectOneMenu>
+        <!--/h:panelGrid-->
+    </composite:implementation>
+</html>
+
+
+

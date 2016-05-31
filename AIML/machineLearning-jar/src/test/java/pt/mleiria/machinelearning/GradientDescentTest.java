@@ -5,7 +5,6 @@
  */
 package pt.mleiria.machinelearning;
 
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import junit.framework.Assert;
@@ -32,34 +31,23 @@ public class GradientDescentTest extends TestCase {
     private Matrix aMulti;
     private Matrix featuresX;
     private Matrix outputY;
-    //final static String path = "/home/manuel/Documents/Coursera/MachineLearning/MLCoursera/machine-learning-ex1/ex1/";
     final static String path = EnvSettings.DATA_DIR;
     private GenericDataSet ds;
-    
+
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        
         String separator = ",";
-               
-        //double[][] components;
-        double[][] componentsMulti;
         try {
-            //components = IOUtils.loadFileToComponents(path +"ex1data1.txt", ",");
-            //a = new Matrix(components);
-            
             ds = new TextDataSet(separator, EnvSettings.EX1DATA1);
             ds.loadData();
             a = DataSet2Matrix.transform(ds.getFeatureList());
-            LOGGER.log(Level.INFO,"EX1DATA1:{0}", a.toString());
-            //componentsMulti = IOUtils.loadFileToComponents(path + "ex1data2.txt", ",");
-            //aMulti = new Matrix(componentsMulti);
+            LOGGER.log(Level.INFO, "EX1DATA1:{0}", a.toString());
             ds = new TextDataSet(separator, EnvSettings.EX1DATA2);
             ds.loadData();
             aMulti = DataSet2Matrix.transform(ds.getFeatureList());
             LOGGER.log(Level.INFO, "EX1DATA2:{0}", aMulti.toString());
-            
-            
+
             Matrix[] splitedM = aMulti.split(1);
             featuresX = splitedM[0];
             outputY = splitedM[1];
@@ -79,7 +67,7 @@ public class GradientDescentTest extends TestCase {
         Assert.assertEquals(3.1702127659574466, ftn.getMean()[1]);
         Assert.assertEquals(0.13000986907454057, normalizedM.component(0, 0));
     }
-    
+
     public void testGradientDescentMulti() {
         double alpha = 0.01;
         int numIter = 400;
@@ -87,8 +75,7 @@ public class GradientDescentTest extends TestCase {
         final FeatureNormalization ftn = new FeatNormMeanStdev();
         final Matrix featuresXNorm = ftn.normalize(this.featuresX);
         LOGGER.log(Level.INFO, "Normalized Matrix (10 rows) \n{0}", featuresXNorm.toString(10));
-        
-        
+
         GradientDescent gd = new GradientDescent(featuresXNorm, outputY, alpha, numIter);
         gd.evaluate();
         IOUtils.saveArrayToFile(path + "JGDM.txt", gd.getCostHistory());
@@ -124,7 +111,5 @@ public class GradientDescentTest extends TestCase {
         Assert.assertEquals(expected, m.multiply(gd.getTheta()).component(0, 0) * 10000.0);
 
     }
-    
-    
 
 }

@@ -6,12 +6,15 @@
 package pt.mleiria.ml.core;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  *
  * @author manuel
  */
 public abstract class GenericDataSet {
+    
+    protected final static Logger LOGGER = Logger.getLogger(GenericDataSet.class.getName());
     /**
      * 
      * Each Feature has a List with Attributes
@@ -42,4 +45,16 @@ public abstract class GenericDataSet {
      * Loads the Data
      */
     public abstract void loadData();
+    /**
+     * 
+     * @return 
+     */
+    public abstract boolean isYNominal();
+    /**
+     * 
+     * @return 
+     */
+    public boolean isYNumeric(){
+        return !isYNominal();
+    }
 }

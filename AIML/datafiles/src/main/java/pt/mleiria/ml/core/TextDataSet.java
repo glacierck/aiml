@@ -26,8 +26,9 @@ public class TextDataSet extends GenericDataSet {
 
     private final String separator;
     private final String pathToFile;
-    
+    private boolean isYNominal;
     private int instances;
+    
     /**
      * 
      * @param separator
@@ -74,6 +75,13 @@ public class TextDataSet extends GenericDataSet {
     }
 
     @Override
+    public boolean isYNominal() {
+        return isYNominal;
+    }
+
+    
+    
+    @Override
     public void loadData() {
         try (BufferedReader br = new BufferedReader(new FileReader(pathToFile))) {
             String line;
@@ -105,6 +113,10 @@ public class TextDataSet extends GenericDataSet {
                     for (int i = 0; i < aux.length; i++) {
                         featureTypes[i] = DataType.valueOf(aux[i].toUpperCase());
                         featureList.get(i).setFeatureType(featureTypes[i]);
+                    }
+                    
+                    if(featureTypes[featureTypes.length-1].equals(DataType.NOMINAL)){
+                        isYNominal = true;
                     }
                 } else {
                     /**

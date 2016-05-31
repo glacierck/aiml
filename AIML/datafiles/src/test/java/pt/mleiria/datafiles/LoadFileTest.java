@@ -44,5 +44,13 @@ public class LoadFileTest extends TestCase {
     public void testFeatureNamesinFeature(){
         assertEquals("cityPopulation", ds.getFeatureList().get(0).getFeatureName());
     }
+    
+    public void testIsYNumeric(){
+        assertEquals(true, ds.isYNumeric());
+    }
+    
+    public void testIsYNominal(){
+        assertEquals(false, ds.isYNominal());
+    }
 
 }

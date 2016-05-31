@@ -13,7 +13,6 @@ import pt.mleiria.machinelearning.matrixAlgebra.Matrix;
  */
 public class GradientDescent extends IteratorProcessor {
 
-    //private final Matrix x;
     private Matrix featuresX;
     private Matrix outputY;
     private Matrix theta;

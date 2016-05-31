@@ -11,14 +11,12 @@
     </composite:interface>
 
     <composite:implementation>
-        <!--h:panelGrid columns="1" cellpadding="5"-->
             <p:chart type="line" model="#{currentDataBean.lineModel1}" id="lineModel1"/>
             
             <p:selectOneMenu id="selAttribute" value="#{currentDataBean.selFeatureNameLessY}">
                 <p:ajax listener="#{currentDataBean.onAttChange}" update="lineModel1" />
                 <f:selectItems value="#{currentDataBean.featureNamesLessY}" />
             </p:selectOneMenu>
-        <!--/h:panelGrid-->
     </composite:implementation>
 </html>
 

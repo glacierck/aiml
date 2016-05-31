@@ -4,7 +4,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:components="http://java.sun.com/jsf/composite/components"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:head>
         <h:outputStylesheet library="css" name="bootstrap.min.css" />
 
@@ -40,8 +41,10 @@
                         <components:selectedAttribute id="saId"/>
                     </p:layoutUnit>
                     <p:layoutUnit id="luCenter" position="center">
+                        <c:if test="#{currentDataBean.YNumeric}">
+                            <components:lineChart rendered="#{mlBean.showPreProcessChart}" id="lcId"/>
+                        </c:if>
                         <components:dataFilesList rendered="#{mlBean.showFiles}"/>
-                        <components:lineChart rendered="#{mlBean.showPreProcessChart}" id="lcId"/>
                     </p:layoutUnit>
                     <p:layoutUnit id="luSouth" position="south">
                         South

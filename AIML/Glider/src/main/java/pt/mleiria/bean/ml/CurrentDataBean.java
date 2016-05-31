@@ -84,6 +84,19 @@ public class CurrentDataBean extends PreProcessorBean {
      *
      * @return
      */
+    public boolean isYNumeric() {
+        LOG.info("isYNumeric?");
+        if (null != ds) {
+            LOG.info("" + ds.isYNumeric());
+            return ds.isYNumeric();
+        }
+        return false;
+    }
+
+    /**
+     *
+     * @return
+     */
     public String[] getFeatureNamesLessY() {
         if (null != ds) {
             final int N = ds.getFeatureNames().length;
@@ -157,7 +170,7 @@ public class CurrentDataBean extends PreProcessorBean {
         if (null != selFeatureName) {
             cds = new CurrentDataStats(getFeatureFromList(ds.getFeatureList(), selFeatureName));
         }
-   }
+    }
 
     /**
      *
@@ -196,34 +209,36 @@ public class CurrentDataBean extends PreProcessorBean {
     private LineChartModel initLinearModel() {
         LineChartModel model = new LineChartModel();
         LineChartSeries series = new LineChartSeries();
-        
+
         final List<Feature> fList = ds.getFeatureList();
         final List<Feature> newFList = new ArrayList<Feature>();
         newFList.add(getFeatureFromList(fList, selFeatureNameLessY));
         selFeatureNameLessY = newFList.get(0).getFeatureName();
         series.setLabel(selFeatureNameLessY);
-        
+
         newFList.add(fList.get(fList.size() - 1));
         final Matrix matrix = DataSet2Matrix.transform(newFList);
-        LOG.info(matrix.toString());
+        //LOG.info(matrix.toString());
         int rows = matrix.rows();
         for (int i = 0; i < rows; i++) {
             series.set(matrix.component(i, 0), matrix.component(i, 1));
         }
         setYAxisLimits(matrix.getColumn(1));
-        
+
         model.addSeries(series);
         return model;
     }
+
     /**
-     * 
-     * @param y 
+     *
+     * @param y
      */
-    private void setYAxisLimits(final double[] y){
+    private void setYAxisLimits(final double[] y) {
         Arrays.sort(y);
         this.yAxmin = y[0];
         this.yAxmax = y[y.length - 1];
     }
+
     /**
      *
      * @return
@@ -239,16 +254,17 @@ public class CurrentDataBean extends PreProcessorBean {
     public void setLineModel1(LineChartModel lineModel1) {
         this.lineModel1 = lineModel1;
     }
+
     /**
-     * 
+     *
      * @param fl
      * @param fname
-     * @return 
+     * @return
      */
     private Feature getFeatureFromList(final List<Feature> fl, final String fname) {
-        
+
         for (Feature f : fl) {
-            LOG.log(Level.INFO, f.getFeatureName());
+            //LOG.log(Level.INFO, f.getFeatureName());
             if (f.getFeatureName().equals(fname)) {
                 return f;
             }

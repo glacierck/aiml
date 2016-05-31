@@ -41,7 +41,6 @@ public class MachineLearningBean {
         showFiles = false;
         showPreProcessChart = false;
     }
-
     /**
      * Upload file to server
      *

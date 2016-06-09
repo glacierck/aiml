@@ -19,19 +19,17 @@ import pt.mleiria.ml.core.TextDataSet;
 @SessionScoped
 public class PreProcessorBean extends MachineLearningBean {
 
-    private final String path = EnvSettings.DATA_DIR;
+    protected final String path = EnvSettings.DATA_DIR;
     protected String fileName;
-    
+
     public PreProcessorBean() {
     }
-    
-    
+
     public void loadFile(final String fileName) throws IOException {
         this.fileName = fileName;
         ds = new TextDataSet(path + fileName);
         ds.loadData();
+        setDataLoaded(true);
     }
-    
-    
 
 }

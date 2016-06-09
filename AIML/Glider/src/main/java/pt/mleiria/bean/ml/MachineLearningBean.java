@@ -17,6 +17,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import pt.mleiria.EnvSettings;
 import pt.mleiria.ml.core.GenericDataSet;
@@ -36,10 +37,12 @@ public class MachineLearningBean {
     protected String fname;
     private static boolean showFiles;
     private static boolean showPreProcessChart;
+    private static boolean dataLoaded;
 
     public MachineLearningBean() {
         showFiles = false;
         showPreProcessChart = false;
+        dataLoaded = false;
     }
     /**
      * Upload file to server
@@ -102,6 +105,8 @@ public class MachineLearningBean {
     public String selectFile() {
         showFiles = true;
         showPreProcessChart = false;
+        ds = null;
+        dataLoaded = false;
         return "";
     }
 
@@ -150,5 +155,24 @@ public class MachineLearningBean {
     public boolean isShowPreProcessChart() {
         return showPreProcessChart;
     }
+    /**
+     * 
+     * @return 
+     */
+    public boolean isDataLoaded() {
+        return dataLoaded;
+    }
+    /**
+     * 
+     * @param dataLoaded 
+     */
+    public void setDataLoaded(boolean dataLoaded) {
+        MachineLearningBean.dataLoaded = dataLoaded;
+    }
 
+    public String getSessionId(){
+        String id = ((HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getId();
+        return id;
+    }
+    
 }

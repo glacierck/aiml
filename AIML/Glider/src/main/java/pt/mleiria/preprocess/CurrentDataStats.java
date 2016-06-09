@@ -9,6 +9,8 @@ import java.util.Arrays;
 import java.util.List;
 import pt.mleiria.machinelearning.statistics.StatisticalMoments;
 import pt.mleiria.ml.core.Attribute;
+import pt.mleiria.ml.core.DataType;
+import pt.mleiria.ml.core.DummyFeature;
 import pt.mleiria.ml.core.Feature;
 import pt.mleiria.ml.core.NumericalAttribute;
 
@@ -20,18 +22,37 @@ public class CurrentDataStats {
 
     private final Feature f;
     private List<Attribute> attList;
-    private StatisticalMoments sm;
+    private final StatisticalMoments sm;
     private double min;
     private double max;
     private double[] col;
+    private DummyFeature df;
+
+    public CurrentDataStats(Feature f) {
+        this.f = f;
+        sm = new StatisticalMoments();
+        if (!f.getFeatureType().equals(DataType.NOMINAL)) {
+            processData();
+        }else{
+            this.df = new DummyFeature(f);
+        }
+    }
 
     /**
      *
-     * @param f
+     * @return
      */
-    public CurrentDataStats(final Feature f) {
-        this.f = f;
-        processData();
+    public Feature getF() {
+        return f;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public DummyFeature getDf() {
+        return df;
+
     }
 
     /**
@@ -41,7 +62,6 @@ public class CurrentDataStats {
         this.attList = f.getAttList();
         int N = attList.size();
         col = new double[N];
-        sm = new StatisticalMoments();
         for (int i = 0; i < N; i++) {
             final double value = ((NumericalAttribute) attList.get(i)).getValue();
             sm.accumulate(value);
@@ -108,12 +128,13 @@ public class CurrentDataStats {
     public double getAttMax() {
         return max;
     }
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public double[] getCol() {
         return col;
     }
-    
+
 }

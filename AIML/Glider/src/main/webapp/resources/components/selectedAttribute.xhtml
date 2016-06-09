@@ -4,32 +4,47 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:composite="http://java.sun.com/jsf/composite"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 
     <composite:interface>
 
     </composite:interface>
 
     <composite:implementation>
-        <p:panelGrid columns="2" id="sa">
-            <f:facet name="header">
-                <h:outputText value="Selected Attribute" />
-            </f:facet>
-
-            <h:outputText value="Name:" />
-            <h:outputText  id="selectedAttName" value="#{currentDataBean.cds.attName}"/>
-            <h:outputText value="Type" />
-            <h:outputText  id="selectedAttType" value="#{currentDataBean.cds.attType}"/>
-            <h:outputText value="Min:" />
-            <h:outputText  id="selectedAttMin" value="#{currentDataBean.cds.attMin}"/>
-            <h:outputText value="Max:" />
-            <h:outputText  id="selectedAttMax" value="#{currentDataBean.cds.attMax}"/>
-            <h:outputText value="Mean:" />
-            <h:outputText  id="selectedAttMean" value="#{currentDataBean.cds.attMean}"/>
-            <h:outputText value="Stdev:" />
-            <h:outputText  id="selectedAttStDev" value="#{currentDataBean.cds.attStDev}"/>
+        <p:panelGrid columns="1">
+            <p:panelGrid columns="3" id="sanominal" rendered="#{!currentDataBean.YNumeric}">
+                <f:facet name="header">
+                    <h:outputText value="Mapping" />
+                </f:facet>
+                <h:outputText value="Name:" style="font-weight:bold"/>
+                <h:outputText value="Value:" style="font-weight:bold"/>
+                <h:outputText value="Instances:" style="font-weight:bold"/>
+                <c:forEach items="#{currentDataBean.cds.df.dummyMap}" var="entry" id="selectedDummy">
+                    <h:outputText value="#{entry.key}"/>
+                    <h:outputText value="#{entry.value[0]}"/>
+                    <h:outputText value="#{entry.value[1]}"/>
+                </c:forEach>
+            </p:panelGrid>
 
 
+            <p:panelGrid columns="2" id="sanumeric">
+                <f:facet name="header">
+                    <h:outputText value="Selected Attribute" />
+                </f:facet>
+                <h:outputText value="Name:" style="font-weight:bold"/>
+                <h:outputText  id="selectedAttName" value="#{currentDataBean.cds.attName}"/>
+                <h:outputText value="Type" style="font-weight:bold"/>
+                <h:outputText  id="selectedAttType" value="#{currentDataBean.cds.attType}"/>
+                <h:outputText value="Min:" style="font-weight:bold"/>
+                <h:outputText  id="selectedAttMin" value="#{currentDataBean.cds.attMin}"/>
+                <h:outputText value="Max:" style="font-weight:bold"/>
+                <h:outputText  id="selectedAttMax" value="#{currentDataBean.cds.attMax}"/>
+                <h:outputText value="Mean:" style="font-weight:bold"/>
+                <h:outputText  id="selectedAttMean" value="#{currentDataBean.cds.attMean}"/>
+                <h:outputText value="Stdev:" style="font-weight:bold"/>
+                <h:outputText  id="selectedAttStDev" value="#{currentDataBean.cds.attStDev}"/>
+            </p:panelGrid>
         </p:panelGrid>
     </composite:implementation>
 </html>

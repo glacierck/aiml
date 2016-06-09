@@ -11,8 +11,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import pt.mleiria.ml.vo.GenericObj;
-import pt.mleiria.ml.vo.HeaderObjectMapper;
+import pt.mleiria.utils.ioutils.GenericObj;
+import pt.mleiria.utils.ioutils.HeaderObjectMapper;
 
 /**
  *

@@ -11,19 +11,22 @@
     </composite:interface>
 
     <composite:implementation>
-            <h:dataTable value="#{mlBean.filesInDir}" var="f" styleClass="table table-striped">
-                <f:facet name="header">Data Files</f:facet>
-                <h:column>
-                    <f:facet name="header">File</f:facet>
-                        #{f}
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Acção</f:facet>
-                    <h:commandLink value="Load File" action="#{currentDataBean.loadFile(f)}">
-                        <!--f:ajax execute="" render="instances"/-->
-                    </h:commandLink>
-                </h:column>
-            </h:dataTable>
+        <h:dataTable value="#{mlBean.filesInDir}" var="f" styleClass="table table-striped">
+            <f:facet name="header">Data Files</f:facet>
+            <h:column>
+                <f:facet name="header">File</f:facet>
+                    #{f}
+            </h:column>
+            <h:column>
+                <!--f:facet name="header">Acção</f:facet-->
+                <h:commandLink value="Load File" action="#{currentDataBean.loadFile(f)}"/>
+            </h:column>
+            <h:column>
+                <!--f:facet name="header">Acção</f:facet-->
+                <h:commandLink value="View Data" target="_new" action="#{currentDataBean.showFileContents(f)}" id="favoritos">
+                </h:commandLink>
+            </h:column>
+        </h:dataTable>
     </composite:implementation>
 </html>
 

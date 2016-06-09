@@ -5,28 +5,29 @@
  */
 package pt.mleiria.ml.core;
 
+import java.util.List;
+
 /**
  *
  * @author manuel
  */
-public class NominalAttribute extends Attribute {
-
-    private String value;
-
+public interface IFeature {
+   
     /**
-     *
-     * @param value
+     * 
+     * @return 
      */
-    @Override
-    public void setValue(String value) {
-        this.value = value;
-    }
-
+    List<Attribute> getAttList();
     /**
-     *
-     * @return
+     * 
+     * @return 
      */
-    public String getValue() {
-        return value;
-    }
+    String getFeatureName();
+    /**
+     * 
+     * @return 
+     */
+    DataType getFeatureType();
+    
+    
 }

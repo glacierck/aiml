@@ -12,10 +12,11 @@ import java.util.List;
  *
  * @author manuel
  */
-public class Feature {
+public class Feature implements IFeature{
 
     private String featureName;
     private DataType featureType;
+    
 
     private List<Attribute> attList;
 
@@ -43,6 +44,7 @@ public class Feature {
      *
      * @return
      */
+    @Override
     public List<Attribute> getAttList() {
         return attList;
     }
@@ -51,6 +53,7 @@ public class Feature {
      *
      * @return
      */
+    @Override
     public String getFeatureName() {
         return featureName;
     }
@@ -67,6 +70,7 @@ public class Feature {
      *
      * @return
      */
+    @Override
     public DataType getFeatureType() {
         return featureType;
     }

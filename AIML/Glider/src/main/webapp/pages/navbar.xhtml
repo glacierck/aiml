@@ -8,7 +8,6 @@
       xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:head>
         <h:outputStylesheet library="css" name="bootstrap.min.css" />
-
     </h:head>
 
     <p:tabView id="tview">
@@ -26,19 +25,16 @@
                     </p:panelGrid>
                 </p:layoutUnit>
                 <h:form id="frm">
-                    <p:layoutUnit id="luWest" position="west" resizable="true" size="200" minSize="100" maxSize="300">
-                        <p:layout id="westLayout">
-                            <p:layoutUnit position="north" id="wnorth">
-                                <components:currentData/>
-                            </p:layoutUnit>
-                            <p:layoutUnit position="center" id="wcenter">
-                                <components:currentAttributes/>
-                            </p:layoutUnit>
-                            <p:layoutUnit position="south" id="wsouth">wSouth</p:layoutUnit>
-                        </p:layout>
+                    <p:layoutUnit id="luWest" position="west" resizable="true">
+
+                        <p:panelGrid columns="1"  rendered="#{mlBean.dataLoaded}">
+                            <components:currentData/>
+                            <components:currentAttributes/>
+                        </p:panelGrid>
+
                     </p:layoutUnit>
-                    <p:layoutUnit id="luEast" position="east">
-                        <components:selectedAttribute id="saId"/>
+                    <p:layoutUnit id="luEast" position="east" resizable="true">
+                        <components:selectedAttribute id="saId" rendered="#{mlBean.dataLoaded}"/>
                     </p:layoutUnit>
                     <p:layoutUnit id="luCenter" position="center">
                         <c:if test="#{currentDataBean.YNumeric}">
@@ -46,8 +42,7 @@
                         </c:if>
                         <components:dataFilesList rendered="#{mlBean.showFiles}"/>
                     </p:layoutUnit>
-                    <p:layoutUnit id="luSouth" position="south">
-                        South
+                    <p:layoutUnit id="luSouth" position="south" resizable="false" size="100">
                     </p:layoutUnit>
                 </h:form>
             </p:layout>

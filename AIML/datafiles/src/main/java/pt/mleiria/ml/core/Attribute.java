@@ -12,8 +12,4 @@ package pt.mleiria.ml.core;
 public abstract class Attribute {
 
     public abstract void setValue(String value);
-    
-    
-    
-    
 }

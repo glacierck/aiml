@@ -44,6 +44,7 @@ public abstract class IteratorProcessor {
         initializeIterations();
         while (iterations++ < maximumIterations) {
             precision = evaluateIteration();
+            LOG.log(Level.INFO, "Precision:{0}", precision);
             if (hasConverged()) {
                 LOG.log(Level.INFO, "Converged at iteration: [{0}]", iterations);
                 LOG.log(Level.INFO, "Converged with precision:[{0}]", precision);

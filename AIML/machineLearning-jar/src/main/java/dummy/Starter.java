@@ -7,7 +7,7 @@ package dummy;
 import pt.mleiria.numericalAnalysis.exception.InvalidIntervalException;
 import pt.mleiria.numericalAnalysis.exception.IterationCountExceededException;
 import pt.mleiria.numericalAnalysis.mathUtils.Function.RootFunctions;
-import pt.mleiria.numericalAnalysis.nonLinearEquation.rootFinder.BissectionRootFinder;
+import pt.mleiria.numericalAnalysis.nonLinearEquation.rootFinder.SecantRootFinder;
 import pt.mleiria.numericalAnalysis.utils.DataAccumulator;
 
 /**
@@ -29,14 +29,14 @@ public class Starter {
 			
 			//End Logger
 			
-                        /**/
+                        /*
 			BissectionRootFinder brf = new BissectionRootFinder(RootFunctions.function("x^2 - 2"), 50, 5E-6, 0, 2);
 			brf.findRoot();
-			/**/
-			/*SecantRootFinder srf = new SecantRootFinder(RootFunctions.function("x^2 - 2"), 50, 5E-6, 2, 0, 0, 2);
+			*/
+			
 			SecantRootFinder srf = new SecantRootFinder(RootFunctions.function("x^2 - 2"), 50, 5E-6, 0, 2, 0, 2);
 			srf.findRoot();
-			*/
+			/**/
 			/*
 			NewtonRootFinder nrf = new NewtonRootFinder(RootFunctions.function("x^2 - 2"), 50, 5E-6, 0, 2, 1);
 			nrf.findRoot();

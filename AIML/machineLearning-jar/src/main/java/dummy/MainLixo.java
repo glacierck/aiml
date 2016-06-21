@@ -3,17 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pt.mleiria.machinelearning.interfaces;
-
-import java.math.BigInteger;
+package dummy;
 
 /**
  *
  * @author manuel
  */
-public interface Factorial {
-    
-    BigInteger doFactorial(int n);
-    
-    
+public class MainLixo {
+
+    public static void main(String[] args){
+       
+    }
 }

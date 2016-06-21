@@ -19,24 +19,34 @@ public class GradientDescent extends IteratorProcessor {
     private double alpha;
     private final int dataSize;
     private final double[] costHistory;
-
+    /**
+     * 
+     * @param featuresX
+     * @param outputY
+     * @param alpha
+     * @param numIter 
+     */
     public GradientDescent(Matrix featuresX, Matrix outputY, double alpha, final int numIter) {
         this.featuresX = featuresX;
         this.outputY = outputY;
         this.alpha = alpha;
         this.dataSize = outputY.rows();
         setMaximumIterations(numIter);
-        //setDesiredPrecision(0.001);
+        setDesiredPrecision(0.00001);
         costHistory = new double[numIter + 1];
     }
-
+    /**
+     * 
+     */
     @Override
     public void initializeIterations() {
         setFeaturesX(this.getFeaturesX().addOnes());
         setTheta(new Matrix(getFeaturesX().columns(), 1));
         computeCost();
     }
-
+    /**
+     * 
+     */
     private void computeCost() {
         double coeff = 1.0 / (2.0 * dataSize);
         final Matrix a = featuresX.multiply(theta);
@@ -67,10 +77,8 @@ public class GradientDescent extends IteratorProcessor {
         Matrix f = e.multiply(coeff);
         theta = theta.subtract(f);
         computeCost();
-        double precision = costHistory[iterations - 1] - costHistory[iterations];
-        //return precision;
-        return 0.0;
-
+        double precision = costHistory[iterations] - costHistory[iterations - 1];
+        return Math.abs(precision);
     }
 
     /**

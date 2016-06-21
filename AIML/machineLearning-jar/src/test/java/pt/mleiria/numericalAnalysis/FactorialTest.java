@@ -8,7 +8,7 @@ package pt.mleiria.numericalAnalysis;
 import java.math.BigInteger;
 import junit.framework.Assert;
 import junit.framework.TestCase;
-import pt.mleiria.machinelearning.functions.FactorialFactory;
+import pt.mleiria.machinelearning.functions.factorial.FactorialFactory;
 import pt.mleiria.machinelearning.interfaces.Factorial;
 
 /**

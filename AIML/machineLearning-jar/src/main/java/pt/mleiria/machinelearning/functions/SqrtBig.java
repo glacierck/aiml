@@ -3,17 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pt.mleiria.machinelearning.interfaces;
-
-import java.math.BigInteger;
+package pt.mleiria.machinelearning.functions;
 
 /**
  *
  * @author manuel
  */
-public interface Factorial {
+public class SqrtBig {
+
     
-    BigInteger doFactorial(int n);
     
     
 }

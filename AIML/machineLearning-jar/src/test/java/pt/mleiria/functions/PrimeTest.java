@@ -3,17 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pt.mleiria.machinelearning.interfaces;
+package pt.mleiria.functions;
 
 import java.math.BigInteger;
+import junit.framework.TestCase;
 
 /**
  *
  * @author manuel
  */
-public interface Factorial {
+public class PrimeTest extends TestCase{
     
-    BigInteger doFactorial(int n);
-    
+    public void testPrime(){
+        BigInteger n = new BigInteger("2209032015182513");
+    }
     
 }

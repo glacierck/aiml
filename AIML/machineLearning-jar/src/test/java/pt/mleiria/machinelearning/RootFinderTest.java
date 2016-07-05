@@ -5,14 +5,11 @@
  */
 package pt.mleiria.machinelearning;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 import pt.mleiria.machinelearning.interfaces.OneVarFunction;
 import pt.mleiria.machinelearning.interfaces.OneVarFunctionDerivative;
 import pt.mleiria.machinelearning.iterations.NewtonRootFinder;
-import pt.mleiria.numericalAnalysis.exception.InvalidIntervalException;
 import pt.mleiria.numericalAnalysis.mathUtils.Function.RootFunctions;
 
 /**

@@ -5,10 +5,9 @@
  */
 package pt.mleiria.machinelearning;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import junit.framework.Assert;
 import junit.framework.TestCase;
+import pt.mleiria.LogTypes;
 import pt.mleiria.machinelearning.neuralnet.LMbpn;
 
 /**
@@ -16,7 +15,7 @@ import pt.mleiria.machinelearning.neuralnet.LMbpn;
  * @author manuel
  */
 public class LMbpnTest extends TestCase {
-    private final static Logger LOGGER = Logger.getLogger(LMbpnTest.class.getName());
+    private static final org.apache.log4j.Logger mlearningLog = org.apache.log4j.Logger.getLogger(LogTypes.MLEARNING_LOG);
     int i ;
     int[] inp= {1, 0, 0,};
     int[] out = {0, 0};
@@ -25,7 +24,7 @@ public class LMbpnTest extends TestCase {
         for(i = 0; i < 500; i++){
             LMbpn.train(1);
         }
-        LOGGER.log(Level.INFO, "Trained Epochs:{0}", LMbpn.trainedEpochs);
+        mlearningLog.info("Trained Epochs: " + LMbpn.trainedEpochs);
         LMbpn.test(inp, out);
         Assert.assertEquals(1, out[0]);
         Assert.assertEquals(0, out[1]);

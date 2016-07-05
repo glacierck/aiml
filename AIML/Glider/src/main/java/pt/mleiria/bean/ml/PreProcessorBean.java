@@ -27,7 +27,7 @@ public class PreProcessorBean extends MachineLearningBean {
 
     public void loadFile(final String fileName) throws IOException {
         this.fileName = fileName;
-        ds = new TextDataSet(path + fileName);
+        ds = new TextDataSet.TextDataSetBuilder(path + fileName).build();
         ds.loadData();
         setDataLoaded(true);
     }

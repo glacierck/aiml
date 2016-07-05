@@ -5,11 +5,10 @@
  */
 package pt.mleiria.machinelearning;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 import pt.mleiria.EnvSettings;
+import pt.mleiria.LogTypes;
 import pt.mleiria.machinelearning.iterations.GradientDescent;
 import pt.mleiria.machinelearning.matrixAlgebra.Matrix;
 import pt.mleiria.machinelearning.preprocess.DataSet2Matrix;
@@ -26,7 +25,7 @@ import pt.mleiria.utils.viewutils.ViewUtils;
  */
 public class GradientDescentTest extends TestCase {
 
-    private final static Logger LOGGER = Logger.getLogger(GradientDescentTest.class.getName());
+    private static final org.apache.log4j.Logger mlearningLog = org.apache.log4j.Logger.getLogger(LogTypes.MLEARNING_LOG);
     private Matrix a;
     private Matrix aMulti;
     private Matrix featuresX;
@@ -39,21 +38,21 @@ public class GradientDescentTest extends TestCase {
         super.setUp();
         String separator = ",";
         try {
-            ds = new TextDataSet(separator, EnvSettings.EX1DATA1);
+            ds = new TextDataSet.TextDataSetBuilder(EnvSettings.EX1DATA1).separator(separator).build();
             ds.loadData();
             a = DataSet2Matrix.transform(ds.getFeatureList());
-            LOGGER.log(Level.INFO, "EX1DATA1:{0}", a.toString());
-            ds = new TextDataSet(separator, EnvSettings.EX1DATA2);
+            mlearningLog.info("EX1DATA1:\n" + a.toString());
+            ds = new TextDataSet.TextDataSetBuilder(EnvSettings.EX1DATA2).separator(separator).build();
             ds.loadData();
             aMulti = DataSet2Matrix.transform(ds.getFeatureList());
-            LOGGER.log(Level.INFO, "EX1DATA2:{0}", aMulti.toString());
+            mlearningLog.info("EX1DATA2:\n" + aMulti.toString());
 
             Matrix[] splitedM = aMulti.split(1);
             featuresX = splitedM[0];
             outputY = splitedM[1];
 
         } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
+            mlearningLog.error(ex);
         }
 
     }
@@ -61,8 +60,8 @@ public class GradientDescentTest extends TestCase {
     public void testFeatureNormalization() {
         final FeatNormMeanStdev ftn = new FeatNormMeanStdev();
         final Matrix normalizedM = ftn.normalize(featuresX);
-        LOGGER.log(Level.INFO, "Mu \n{0}", ViewUtils.showArrayContents(ftn.getMean()));
-        LOGGER.log(Level.INFO, "Sigma \n{0}", ViewUtils.showArrayContents(ftn.getStdev()));
+        mlearningLog.info("Mu " + ViewUtils.showArrayContents(ftn.getMean()));
+        mlearningLog.info("Sigma " + ViewUtils.showArrayContents(ftn.getStdev()));
         Assert.assertEquals(2000.6808510638298, ftn.getMean()[0]);
         Assert.assertEquals(3.1702127659574466, ftn.getMean()[1]);
         Assert.assertEquals(0.13000986907454057, normalizedM.component(0, 0));
@@ -74,7 +73,7 @@ public class GradientDescentTest extends TestCase {
         //Normalize featuresX
         final FeatureNormalization ftn = new FeatNormMeanStdev();
         final Matrix featuresXNorm = ftn.normalize(this.featuresX);
-        LOGGER.log(Level.INFO, "Normalized Matrix (10 rows) \n{0}", featuresXNorm.toString(10));
+        mlearningLog.info("Normalized Matrix (10 rows) \n" + featuresXNorm.toString(10));
 
         GradientDescent gd = new GradientDescent(featuresXNorm, outputY, alpha, numIter);
         gd.evaluate();
@@ -106,8 +105,8 @@ public class GradientDescentTest extends TestCase {
         predict[0][0] = 1;
         predict[0][1] = 3.5;
         Matrix m = new Matrix(predict);
-        LOGGER.log(Level.INFO, "Final Theta \n{0}", gd.getTheta().toString());
-        LOGGER.log(Level.INFO, "Prediction Matrix \n{0}", m.toString());
+        mlearningLog.info("Final Theta " + gd.getTheta().toString());
+        mlearningLog.info("Prediction Matrix \n" + m.toString());
         Assert.assertEquals(expected, m.multiply(gd.getTheta()).component(0, 0) * 10000.0);
 
     }

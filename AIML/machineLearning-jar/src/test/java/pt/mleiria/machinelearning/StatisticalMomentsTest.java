@@ -5,9 +5,10 @@
  */
 package pt.mleiria.machinelearning;
 
-import java.util.logging.Logger;
 import junit.framework.Assert;
 import junit.framework.TestCase;
+import org.apache.log4j.Logger;
+import pt.mleiria.LogTypes;
 import pt.mleiria.machinelearning.statistics.StatisticalMoments;
 
 
@@ -17,7 +18,7 @@ import pt.mleiria.machinelearning.statistics.StatisticalMoments;
  */
 public class StatisticalMomentsTest extends TestCase{
     
-    private final static Logger LOGGER = Logger.getLogger(MatrixTest.class.getName());
+    private static final Logger log = Logger.getLogger(LogTypes.MLEARNING_LOG);
     private StatisticalMoments sm;
     private double[] x = new double[5];
     

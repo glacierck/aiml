@@ -69,7 +69,7 @@ public class CurrentDataBean extends PreProcessorBean {
         if (null != ds) {
             setShowPreProcessChart(true);
             createInitPlot();
-            if (ds.isYNominal()){
+            if (ds.isYNominal()) {
                 cds = new CurrentDataStats((ds.getYFeature()));
             }
         }
@@ -82,19 +82,21 @@ public class CurrentDataBean extends PreProcessorBean {
      * @throws Exception
      */
     public String showFileContents(String fileName) throws Exception {
-        LOG.info(path + fileName);
+        gliderLog.info(path + fileName);
         hom = IOUtils.loadRawData(path + fileName, true, true);
         return "rawDataWindow";
     }
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
-    public HeaderObjectMapper getRawData(){
-        if (null != hom)
+    public HeaderObjectMapper getRawData() {
+        if (null != hom) {
             return hom;
-        else
+        } else {
             return null;
+        }
     }
 
     @Override

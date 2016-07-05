@@ -6,7 +6,8 @@
 package pt.mleiria.ml.core;
 
 import java.util.List;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
+import pt.mleiria.LogTypes;
 
 /**
  *
@@ -14,7 +15,7 @@ import java.util.logging.Logger;
  */
 public abstract class GenericDataSet {
 
-    protected final static Logger LOGGER = Logger.getLogger(GenericDataSet.class.getName());
+    protected static final Logger datafilesLog = Logger.getLogger(LogTypes.DATAFILES_LOG);
 
     /**
      *

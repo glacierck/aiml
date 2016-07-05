@@ -11,8 +11,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -28,23 +26,16 @@ public class TextDataSet extends GenericDataSet {
     private final String pathToFile;
     private boolean isYNominal;
     private int instances;
-    
+
     /**
-     * 
+     *
      * @param separator
-     * @param pathToFile 
+     * @param pathToFile
      */
-    public TextDataSet(final String separator, final String pathToFile) {
-        this.separator = separator;
-        this.pathToFile = pathToFile;
-    }
-    /**
-     * Using default file separator  ,
-     * @param pathToFile 
-     */
-    public TextDataSet(final String pathToFile) {
-        this.separator = ",";
-        this.pathToFile = pathToFile;
+    private TextDataSet(TextDataSetBuilder builder) {
+        this.separator = builder.separator;
+        this.pathToFile = builder.pathToFile;
+        this.featureNames = builder.featureNames;
     }
 
     /**
@@ -79,14 +70,16 @@ public class TextDataSet extends GenericDataSet {
         return isYNominal;
     }
 
-    
-    
     @Override
     public void loadData() {
         try (BufferedReader br = new BufferedReader(new FileReader(pathToFile))) {
             String line;
             int lineCount = 0;
             instances = 0;
+            if(null != featureNames && featureNames.length != 0){
+                addFeatureNames();
+                lineCount++;
+            }
             while ((line = br.readLine()) != null) {
                 if (lineCount == 0) {
                     /**
@@ -96,14 +89,7 @@ public class TextDataSet extends GenericDataSet {
                     /**
                      * Initialize data structure
                      */
-                    featureList = new ArrayList<>(featureNames.length);
-                    int cols = featureNames.length;
-                    for (int i = 0; i < cols; i++) {
-                        final Feature f = new Feature();
-                        f.setFeatureName(featureNames[i]);
-                        featureList.add(f);
-                    }
-
+                    addFeatureNames();
                 } else if (lineCount == 1) {
                     /**
                      * Get type of attributes
@@ -114,8 +100,8 @@ public class TextDataSet extends GenericDataSet {
                         featureTypes[i] = DataType.valueOf(aux[i].toUpperCase());
                         featureList.get(i).setFeatureType(featureTypes[i]);
                     }
-                    
-                    if(featureTypes[featureTypes.length-1].equals(DataType.NOMINAL)){
+
+                    if (featureTypes[featureTypes.length - 1].equals(DataType.NOMINAL)) {
                         isYNominal = true;
                     }
                 } else {
@@ -128,12 +114,23 @@ public class TextDataSet extends GenericDataSet {
                 lineCount++;
             }
             instances = lineCount - 2;
+            datafilesLog.info("File:" + pathToFile + " loaded with: " + instances + " insances.");
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(TextDataSet.class.getName()).log(Level.SEVERE, null, ex);
+            datafilesLog.error("File Not Found:", ex);
         } catch (IOException ex) {
-            Logger.getLogger(TextDataSet.class.getName()).log(Level.SEVERE, null, ex);
+            datafilesLog.error("General IO Error:", ex);
         }
 
+    }
+
+    private void addFeatureNames() {
+        featureList = new ArrayList<>(featureNames.length);
+        int cols = featureNames.length;
+        for (int i = 0; i < cols; i++) {
+            final Feature f = new Feature();
+            f.setFeatureName(featureNames[i]);
+            featureList.add(f);
+        }
     }
 
     private void processData(final String[] rawData) {
@@ -162,6 +159,34 @@ public class TextDataSet extends GenericDataSet {
         return super.toString(); //To change body of generated methods, choose Tools | Templates.
     }
 
-    
-    
+    public static class TextDataSetBuilder {
+
+        private String separator;
+        private final String pathToFile;
+        private String[] featureNames;
+
+        /**
+         *          *
+         * @param pathToFile
+         */
+        public TextDataSetBuilder(final String pathToFile) {
+            this.separator = ",";
+            this.pathToFile = pathToFile;
+        }
+
+        public TextDataSetBuilder separator(final String separator) {
+            this.separator = separator;
+            return this;
+        }
+
+        public TextDataSetBuilder featureNames(final String[] featureNames) {
+            this.featureNames = featureNames;
+            return this;
+        }
+
+        public TextDataSet build() {
+            return new TextDataSet(this);
+        }
+    }
+
 }

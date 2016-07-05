@@ -8,6 +8,8 @@ package pt.mleiria.numericalAnalysis;
 import java.math.BigInteger;
 import junit.framework.Assert;
 import junit.framework.TestCase;
+import org.apache.log4j.Logger;
+import pt.mleiria.LogTypes;
 import pt.mleiria.machinelearning.functions.factorial.FactorialFactory;
 import pt.mleiria.machinelearning.interfaces.Factorial;
 
@@ -16,6 +18,7 @@ import pt.mleiria.machinelearning.interfaces.Factorial;
  * @author manuel
  */
 public class FactorialTest extends TestCase{
+    private static final Logger log = org.apache.log4j.Logger.getLogger(LogTypes.MLEARNING_LOG);
     private final int n = 10;
     private final BigInteger result = BigInteger.valueOf(3628800);
     private FactorialFactory ff;
@@ -29,6 +32,7 @@ public class FactorialTest extends TestCase{
      */
     public void testLoopFactorial(){
         Factorial lf = ff.getFactorialAlgorithm(FactorialFactory.FactorialTypes.LOOP);
+        log.info("Result Loop Factorial:" + result);
         Assert.assertEquals(result, lf.doFactorial(n));
     }
     /**

@@ -3,15 +3,17 @@
  */
 package pt.mleiria.machinelearning.iterations;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
+import pt.mleiria.LogTypes;
+
+
 
 /**
  *
  * @author manuel
  */
 public abstract class IteratorProcessor {
-    protected final static Logger LOG = Logger.getLogger(IteratorProcessor.class.getName());
+    protected static final Logger log = Logger.getLogger(LogTypes.MLEARNING_LOG);
 
     /**
      * Number of iterations performed.
@@ -44,10 +46,10 @@ public abstract class IteratorProcessor {
         initializeIterations();
         while (iterations++ < maximumIterations) {
             precision = evaluateIteration();
-            LOG.log(Level.INFO, "Precision:{0}", precision);
+            //LOG.log(Level.INFO, "Precision:{0}", precision);
             if (hasConverged()) {
-                LOG.log(Level.INFO, "Converged at iteration: [{0}]", iterations);
-                LOG.log(Level.INFO, "Converged with precision:[{0}]", precision);
+                log.info("Converged at iteration: [" + iterations + "]");
+                log.info("Converged with precision:[" + precision + "]");
                 break;
             }
         }
@@ -65,7 +67,7 @@ public abstract class IteratorProcessor {
      * Clean-up operations
      */
     public void finalizeIterations() {
-        LOG.log(Level.INFO, "Iterations:[{0}]", iterations );
+        log.info("Iterations:[" + iterations +"]" );
     }
 
     /**

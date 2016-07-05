@@ -5,10 +5,10 @@
  */
 package pt.mleiria.machinelearning;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import junit.framework.Assert;
 import junit.framework.TestCase;
+import org.apache.log4j.Logger;
+import pt.mleiria.LogTypes;
 import pt.mleiria.machinelearning.matrixAlgebra.Matrix;
 import pt.mleiria.machinelearning.preprocess.FeatNormMeanStdev;
 import pt.mleiria.machinelearning.preprocess.FeatNormMinMax;
@@ -24,7 +24,7 @@ public class MatrixTest extends TestCase {
     /**
      * Logger
      */
-    private final static Logger LOGGER = Logger.getLogger(MatrixTest.class.getName());
+    private static final Logger log = Logger.getLogger(LogTypes.MLEARNING_LOG);
     private Matrix a;
 
     @Override
@@ -36,7 +36,7 @@ public class MatrixTest extends TestCase {
         components[1][0] = 3;
         components[1][1] = 4;
         a = new Matrix(components);
-        LOGGER.log(Level.INFO, "\n{0}", a.toString());
+        log.info("\n" + a.toString());
     }
     
     
@@ -53,7 +53,7 @@ public class MatrixTest extends TestCase {
         Assert.assertEquals(4.0, c.component(0, 1));
         Assert.assertEquals(6.0, c.component(1, 0));
         Assert.assertEquals(8.0, c.component(1, 1));
-        LOGGER.log(Level.INFO, "\n{0}", c.toString());
+        log.info("\n" + c.toString());
     }
 
     public void testMatrixSubtraction() {
@@ -83,7 +83,7 @@ public class MatrixTest extends TestCase {
         Assert.assertEquals(10.0, b.component(0, 1));
         Assert.assertEquals(15.0, b.component(1, 0));
         Assert.assertEquals(20.0, b.component(1, 1));
-        LOGGER.log(Level.INFO, "\n{0}", b.toString());
+        log.info("\n" + b.toString());
     }
 
     public void testMatrixMultiply() {
@@ -98,7 +98,7 @@ public class MatrixTest extends TestCase {
         Assert.assertEquals(22.0, c.component(0, 1));
         Assert.assertEquals(43.0, c.component(1, 0));
         Assert.assertEquals(50.0, c.component(1, 1));
-        LOGGER.log(Level.INFO, "\n{0}", c.toString());
+        log.info("\n" + c.toString());
     }
     public void testMatrixIdentity() {
         double[][] components = new double[2][2];
@@ -113,7 +113,7 @@ public class MatrixTest extends TestCase {
         Assert.assertEquals(aa.component(0, 1), b.component(0, 1));
         Assert.assertEquals(aa.component(1, 0), b.component(1, 0));
         Assert.assertEquals(aa.component(1, 1), b.component(1, 1));
-        LOGGER.log(Level.INFO, "Eye matrix: \n{0}", aa.toString());
+        log.info("Eye matrix: \n" + aa.toString());
     }
     
     public void testMatrixTranspose(){
@@ -135,7 +135,7 @@ public class MatrixTest extends TestCase {
         components[3][2] = 15;
         components[3][3] = 1;
         Matrix a = new Matrix(components);
-        LOGGER.log(Level.INFO, "Matrix a: \n{0}", a.toString());
+        log.info("Matrix a: \n" + a.toString());
         Matrix b = a.transpose();
         double[][] componentsTranspose = new double[4][4];
         componentsTranspose[0][0] = 16;
@@ -155,7 +155,7 @@ public class MatrixTest extends TestCase {
         componentsTranspose[3][2] = 12;
         componentsTranspose[3][3] = 1;
         Matrix c = new Matrix(componentsTranspose);
-        LOGGER.log(Level.INFO, "Matrix a transposed: \n{0}", b.toString());
+        log.info("Matrix a transposed: \n" + b.toString());
         Assert.assertFalse(!b.equals(c));
     }
     
@@ -172,14 +172,14 @@ public class MatrixTest extends TestCase {
         comps[3][1] = 2;
         comps[4][1] = 4;
         Matrix a = new Matrix(comps);
-        LOGGER.log(Level.INFO, "Matrix To Normalize: \n{0}", a.toString());
+        log.info("Matrix To Normalize: \n" + a.toString());
         FeatNormMeanStdev fn = new FeatNormMeanStdev();
         Matrix normalizedMatrix = fn.normalize(a);
-        LOGGER.log(Level.INFO, "Matrix Normalized: \n{0}", normalizedMatrix.toString());
-        LOGGER.log(Level.INFO, "Mean Column 0: \n{0}", fn.getMean()[0]);
-        LOGGER.log(Level.INFO, "Mean Column 1: \n{0}", fn.getMean()[1]);
-        LOGGER.log(Level.INFO, "Stdev Column 0: \n{0}", fn.getStdev()[0]);
-        LOGGER.log(Level.INFO, "Stdev Column 1: \n{0}", fn.getStdev()[1]);
+        log.info("Matrix Normalized: \n" + normalizedMatrix.toString());
+        log.info("Mean Column 0: " + fn.getMean()[0]);
+        log.info("Mean Column 1: " + fn.getMean()[1]);
+        log.info("Stdev Column 0: " + fn.getStdev()[0]);
+        log.info("Stdev Column 1: " +fn.getStdev()[1]);
         Assert.assertEquals(2104.0, fn.getMean()[0]);
         Assert.assertEquals(3.0, fn.getMean()[1]);
     }
@@ -196,19 +196,19 @@ public class MatrixTest extends TestCase {
         comps[3][1] = 2;
         comps[4][1] = 4;
         Matrix a = new Matrix(comps);
-        LOGGER.log(Level.INFO, "Matrix To Normalize: \n{0}", a.toString());
+        log.info("Matrix To Normalize: \n" + a.toString());
         FeatNormMinMax fn = new FeatNormMinMax();
         Matrix normalizedMatrix = fn.normalize(a);
-        LOGGER.log(Level.INFO, "Matrix Normalized: \n{0}", normalizedMatrix.toString());
+        log.info("Matrix Normalized: \n" + normalizedMatrix.toString());
         Assert.assertEquals(0.43434343434343436, normalizedMatrix.component(0, 0));
         Assert.assertEquals(0.5, normalizedMatrix.component(0, 1));
     }
     
     public void testMatrixSplit(){
         Matrix[] result = a.split(1);
-        LOGGER.log(Level.INFO, "Matrix To Split: \n{0}", a.toString());
-        LOGGER.log(Level.INFO, "Matrix[0]: \n{0}", result[0].toString());
-        LOGGER.log(Level.INFO, "Matrix[1]: \n{0}", result[1].toString());
+        log.info("Matrix To Split: \n" + a.toString());
+        log.info("Matrix[0]: \n" + result[0].toString());
+        log.info("Matrix[1]: \n"  +result[1].toString());
         Assert.assertEquals(1.0, result[0].component(0, 0));
         Assert.assertEquals(2.0, result[1].component(0, 0));
         

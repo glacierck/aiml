@@ -11,15 +11,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import org.apache.log4j.Logger;
 import pt.mleiria.EnvSettings;
+import pt.mleiria.LogTypes;
 import pt.mleiria.ml.core.GenericDataSet;
 
 /**
@@ -30,7 +30,7 @@ import pt.mleiria.ml.core.GenericDataSet;
 @SessionScoped
 public class MachineLearningBean {
 
-    protected final static Logger LOG = Logger.getLogger(MachineLearningBean.class.getName());
+    protected static final Logger gliderLog = Logger.getLogger(LogTypes.GLIDER_LOG);
 
     protected GenericDataSet ds;
     private Part dataFile;
@@ -67,7 +67,7 @@ public class MachineLearningBean {
         }
         outputStream.close();
         inputStream.close();
-        LOG.log(Level.INFO, "[+] Ficheiro {0} carregado com sucesso!", fname);
+        gliderLog.info("[+] Ficheiro " + fname + " carregado com sucesso!");
         FacesContext.getCurrentInstance().addMessage(
                 null,
                 new FacesMessage(FacesMessage.SEVERITY_INFO,

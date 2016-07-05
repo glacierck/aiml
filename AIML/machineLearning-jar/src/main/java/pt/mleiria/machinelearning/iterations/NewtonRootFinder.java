@@ -5,8 +5,7 @@
  */
 package pt.mleiria.machinelearning.iterations;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import pt.mleiria.machinelearning.interfaces.OneVarFunctionDerivative;
 import pt.mleiria.numericalAnalysis.exception.InvalidIntervalException;
 
@@ -50,7 +49,7 @@ public class NewtonRootFinder extends RootFinder {
         try {
             checkInterval();
         } catch (InvalidIntervalException ex) {
-            Logger.getLogger(NewtonRootFinder.class.getName()).log(Level.SEVERE, null, ex);
+            log.error(ex);
             throw new IllegalArgumentException("Invalid Interval");
         }
         this.xm = startingPoint ;

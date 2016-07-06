@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import pt.mleiria.LogTypes;
 
 /**
  *
@@ -114,7 +115,8 @@ public class TextDataSet extends GenericDataSet {
                 lineCount++;
             }
             instances = lineCount - 2;
-            datafilesLog.info("File:" + pathToFile + " loaded with: " + instances + " insances.");
+            //datafilesLog.info("File:" + pathToFile + " loaded with: " + instances + " insances.");
+            datafilesLog.info(LogTypes.formatLog("File:{0} loaded with:{1} instances", new Object[]{pathToFile, instances}));
         } catch (FileNotFoundException ex) {
             datafilesLog.error("File Not Found:", ex);
         } catch (IOException ex) {

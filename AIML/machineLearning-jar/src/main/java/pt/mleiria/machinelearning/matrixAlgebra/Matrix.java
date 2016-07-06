@@ -27,7 +27,6 @@ public class Matrix {
             throw new IllegalArgumentException("Illegal matrix size.");
         }
         components = new double[n][m];
-        clear();
     }
 
     /**
@@ -37,7 +36,6 @@ public class Matrix {
      */
     public Matrix(final int dimension) {
         components = new double[dimension][dimension];
-        clear();
     }
 
     /**
@@ -168,7 +166,7 @@ public class Matrix {
     /**
      * Returns a string representation of the Matrix with numRows
      *
-     * @param numRows 
+     * @param numRows
      * @return java.lang.String
      */
     public String toString(final int numRows) {
@@ -260,7 +258,7 @@ public class Matrix {
      * @return double[][] The components of the product of the receiver with the
      * supplied matrix
      */
-    protected double[][] productComponents(final Matrix matrix) {
+    private double[][] productComponents(final Matrix matrix) {
         int p = this.columns();
         int n = this.rows();
         int m = matrix.columns();
@@ -384,11 +382,9 @@ public class Matrix {
      * Creates a matrix with random elements uniformly distributed on the
      * interval (0, 1).
      *
-     * @param n
-     * @param m
-     * @return
+     * @return Matrix
      */
-    public void rand() {
+    public Matrix rand() {
         final int n = rows();
         final int m = columns();
         //for each row
@@ -398,13 +394,14 @@ public class Matrix {
                 components[i][j] = Math.random();
             }
         }
+        return new Matrix(components);
     }
 
     /**
      *
-     * @param dimension
+     * @return an Identity Matrix
      */
-    public void identity() {
+    public Matrix identity() {
         int n = rows();
         int m = columns();
         if (n != m) {
@@ -419,11 +416,17 @@ public class Matrix {
                 }
             }
         }
+        return new Matrix(components);
     }
-    
-    public double[] getColumn(int colIndex){
+
+    /**
+     *
+     * @param colIndex
+     * @return the column specified by the colIndex parameter
+     */
+    public double[] getColumn(int colIndex) {
         int n = rows();
-        if (colIndex > columns()){
+        if (colIndex > columns()) {
             throw new IllegalArgumentException("Column Index provided is greater than matrix number of columns");
         }
         double[] colArray = new double[n];
@@ -434,13 +437,27 @@ public class Matrix {
     }
 
     public static void main(String[] args) {
-        Matrix m = new Matrix(3, 4);
-        m.rand();
+        
+        double[][] components = new double[4][4];
+        components[0][0] = 16;
+        components[0][1] = 2;
+        components[0][2] = 3;
+        components[0][3] = 13;
+        components[1][0] = 5;
+        components[1][1] = 11;
+        components[1][2] = 10;
+        components[1][3] = 8;
+        components[2][0] = 9;
+        components[2][1] = 7;
+        components[2][2] = 6;
+        components[2][3] = 12;
+        components[3][0] = 4;
+        components[3][1] = 14;
+        components[3][2] = 15;
+        components[3][3] = 1;
+        Matrix m = new Matrix(components);
         System.out.println(m.toString());
-
-        Matrix m1 = new Matrix(3);
-        m1.identity();
-        System.out.println(m1.toString());
-
+        Matrix mm = m.sum(1);
+        System.out.println(mm.toString());
     }
 }

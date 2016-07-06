@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pt.mleiria.machinelearning.iterations;
+package pt.mleiria.machinelearning.regression;
 
+import pt.mleiria.machinelearning.iterations.IteratorProcessor;
 import pt.mleiria.machinelearning.matrixAlgebra.Matrix;
 
 /**
@@ -18,30 +19,29 @@ public class GradientDescent extends IteratorProcessor {
     private Matrix theta;
     private double alpha;
     private final int dataSize;
-    private final double[] costHistory;
+    private double[] costHistory;
     /**
      * 
      * @param featuresX
      * @param outputY
-     * @param alpha
-     * @param numIter 
+     * @param alpha 
      */
-    public GradientDescent(Matrix featuresX, Matrix outputY, double alpha, final int numIter) {
+    public GradientDescent(Matrix featuresX, Matrix outputY, double alpha) {
         this.featuresX = featuresX;
         this.outputY = outputY;
         this.alpha = alpha;
         this.dataSize = outputY.rows();
-        setMaximumIterations(numIter);
-        setDesiredPrecision(0.00001);
-        costHistory = new double[numIter + 1];
+        
+        
     }
     /**
      * 
      */
     @Override
     public void initializeIterations() {
-        setFeaturesX(this.getFeaturesX().addOnes());
-        setTheta(new Matrix(getFeaturesX().columns(), 1));
+        costHistory = new double[getMaximumIterations() + 1];
+        setFeaturesX(featuresX.addOnes());
+        setTheta(new Matrix(featuresX.columns(), 1));
         computeCost();
     }
     /**

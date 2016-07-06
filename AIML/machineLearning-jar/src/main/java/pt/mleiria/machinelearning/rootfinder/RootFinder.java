@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pt.mleiria.machinelearning.iterations;
+package pt.mleiria.machinelearning.rootfinder;
 
 import pt.mleiria.machinelearning.interfaces.OneVarFunction;
+import pt.mleiria.machinelearning.iterations.IteratorProcessor;
 import pt.mleiria.numericalAnalysis.exception.InvalidIntervalException;
 
 /**

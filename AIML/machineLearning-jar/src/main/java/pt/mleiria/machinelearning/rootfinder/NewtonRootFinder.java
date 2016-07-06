@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pt.mleiria.machinelearning.iterations;
+package pt.mleiria.machinelearning.rootfinder;
+
 
 
 import pt.mleiria.machinelearning.interfaces.OneVarFunctionDerivative;

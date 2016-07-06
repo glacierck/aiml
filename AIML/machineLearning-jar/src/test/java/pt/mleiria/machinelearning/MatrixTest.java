@@ -107,8 +107,7 @@ public class MatrixTest extends TestCase {
         components[1][0] = 0;
         components[1][1] = 1;
         Matrix aa = new Matrix(components);
-        Matrix b = new Matrix(2);
-        b.identity();
+        Matrix b = new Matrix(2).identity();
         Assert.assertEquals(aa.component(0, 0), b.component(0, 0));
         Assert.assertEquals(aa.component(0, 1), b.component(0, 1));
         Assert.assertEquals(aa.component(1, 0), b.component(1, 0));

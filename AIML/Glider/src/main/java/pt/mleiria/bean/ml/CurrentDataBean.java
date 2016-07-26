@@ -270,7 +270,7 @@ public class CurrentDataBean extends PreProcessorBean {
             series.set(matrix.component(i, 0), matrix.component(i, 1));
         }
         setYAxisLimits(matrix.getColumn(1));
-        model.setShowPointLabels(true);
+        series.setShowMarker(false);
         model.addSeries(series);
         return model;
     }

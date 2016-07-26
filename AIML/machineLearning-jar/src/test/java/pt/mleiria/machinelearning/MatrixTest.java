@@ -210,9 +210,37 @@ public class MatrixTest extends TestCase {
         log.info("Matrix[1]: \n"  +result[1].toString());
         Assert.assertEquals(1.0, result[0].component(0, 0));
         Assert.assertEquals(2.0, result[1].component(0, 0));
-        
-        
-        
+    }
+    
+    public void testTrainTestSplit(){
+        double[][] components = new double[4][4];
+        components[0][0] = 16;
+        components[0][1] = 2;
+        components[0][2] = 3;
+        components[0][3] = 13;
+        components[1][0] = 5;
+        components[1][1] = 11;
+        components[1][2] = 10;
+        components[1][3] = 8;
+        components[2][0] = 9;
+        components[2][1] = 7;
+        components[2][2] = 6;
+        components[2][3] = 12;
+        components[3][0] = 4;
+        components[3][1] = 14;
+        components[3][2] = 15;
+        components[3][3] = 1;
+        Matrix a = new Matrix(components);
+        Matrix[] trainTest = a.trainTestSplit(0.9);
+        Matrix train = trainTest[0];
+        Matrix test = trainTest[1];
+        log.info("Matrix To Train Test Split: \n" + a.toString());
+        log.info("Train Matrix: \n" + train.toString());
+        log.info("Test Matrix: \n" + test.toString());
+        Assert.assertEquals(a.columns(), train.columns());
+        Assert.assertEquals(a.columns(), test.columns());
+        Assert.assertEquals(3, train.rows());
+        Assert.assertEquals(1, test.rows());
     }
 
 }

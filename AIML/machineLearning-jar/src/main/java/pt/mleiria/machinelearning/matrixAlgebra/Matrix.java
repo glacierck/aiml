@@ -308,6 +308,32 @@ public class Matrix {
         return result;
 
     }
+    /**
+     * Splits the receiver in tow Matrices
+     * Matrix[0] is the train Matrix
+     * Matrix[1] is the test Matrix
+     * @param percentageOfTrainingData
+     * @return Matrix[2]
+     */
+    public Matrix[] trainTestSplit(double percentageOfTrainingData){
+        final int rows = rows();
+        final int cols = columns();
+        final int dim = (int) (rows() * percentageOfTrainingData);
+        
+        double[][] train = new double[dim][cols];
+        double[][] test = new double[rows-dim][cols];
+                
+        for(int i = 0; i < rows; i++){
+            for (int j = 0; j < cols; j++){
+                if(i < dim){
+                    train[i][j] = components[i][ j];
+                }else{
+                    test[i-dim][j] = components[i][j];
+                }
+            }
+        }
+        return new Matrix[]{new Matrix(train), new Matrix(test)};
+    }
 
     /**
      * Add a column of ones in column[0] to the receiver

@@ -19,7 +19,7 @@ import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.chart.LineChartSeries;
 import pt.mleiria.machinelearning.matrixAlgebra.Matrix;
 import pt.mleiria.machinelearning.preprocess.DataSet2Matrix;
-import pt.mleiria.ml.core.Feature;
+import pt.mleiria.ml.feature.Feature;
 import pt.mleiria.preprocess.CurrentDataStats;
 import pt.mleiria.utils.ioutils.HeaderObjectMapper;
 import pt.mleiria.utils.ioutils.IOUtils;
@@ -82,8 +82,9 @@ public class CurrentDataBean extends PreProcessorBean {
      * @throws Exception
      */
     public String showFileContents(String fileName) throws Exception {
-        gliderLog.info(path + fileName);
-        hom = IOUtils.loadRawData(path + fileName, true, true);
+        gliderLog.info("Load Raw Data:" + path + fileName);
+        hom = IOUtils.loadRawData(path + fileName, true, false);
+        gliderLog.info(path + fileName + " loaded with:" + hom.getLst().size() + " lines");
         return "rawDataWindow";
     }
 
@@ -269,7 +270,7 @@ public class CurrentDataBean extends PreProcessorBean {
         for (int i = 0; i < rows; i++) {
             series.set(matrix.component(i, 0), matrix.component(i, 1));
         }
-        setYAxisLimits(matrix.getColumn(1));
+        setYAxisLimits(matrix.getColumn(1).toComponents());
         series.setShowMarker(false);
         model.addSeries(series);
         return model;

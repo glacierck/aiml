@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pt.mleiria.machinelearning.preprocess;
 
 import pt.mleiria.machinelearning.matrixAlgebra.Matrix;
@@ -12,15 +7,11 @@ import pt.mleiria.machinelearning.statistics.StatisticalMoments;
  *
  * @author manuel
  */
-public class FeatNormMeanStdev implements FeatureNormalization{
+public class FeatNormMeanStdev implements FeatureNormalization {
 
     private double[] mean;
     private double[] stdev;
 
-    public FeatNormMeanStdev() {
-    }
-    
-    
     /**
      * new Matrix = (elements - mean)/std
      *
@@ -31,7 +22,7 @@ public class FeatNormMeanStdev implements FeatureNormalization{
     public Matrix normalize(final Matrix matrix) {
         mean = new double[matrix.columns()];
         stdev = new double[matrix.columns()];
-        
+
         final int rows = matrix.rows();
         final int columns = matrix.columns();
         double[][] components = matrix.toComponents();
@@ -53,20 +44,21 @@ public class FeatNormMeanStdev implements FeatureNormalization{
         }
         return new Matrix(newComponents);
     }
+
     /**
-     * 
+     *
      * @return an array with the mean of all columns
      */
     public double[] getMean() {
         return mean;
     }
+
     /**
-     * 
+     *
      * @return an array with the stdev of all columns
      */
     public double[] getStdev() {
         return stdev;
     }
-
 
 }

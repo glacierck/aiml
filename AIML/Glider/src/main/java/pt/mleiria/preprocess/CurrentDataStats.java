@@ -8,11 +8,11 @@ package pt.mleiria.preprocess;
 import java.util.Arrays;
 import java.util.List;
 import pt.mleiria.machinelearning.statistics.StatisticalMoments;
-import pt.mleiria.ml.core.Attribute;
+import pt.mleiria.ml.attribute.Attribute;
 import pt.mleiria.ml.core.DataType;
-import pt.mleiria.ml.core.DummyFeature;
-import pt.mleiria.ml.core.Feature;
-import pt.mleiria.ml.core.NumericalAttribute;
+import pt.mleiria.ml.feature.Feature;
+import pt.mleiria.ml.attribute.NumericalAttribute;
+import pt.mleiria.ml.feature.DummyFeature;
 
 /**
  *

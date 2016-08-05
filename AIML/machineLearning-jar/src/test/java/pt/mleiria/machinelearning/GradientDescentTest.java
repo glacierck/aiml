@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import pt.mleiria.EnvSettings;
 import pt.mleiria.LogTypes;
 import pt.mleiria.machinelearning.matrixAlgebra.Matrix;
+import pt.mleiria.machinelearning.matrixAlgebra.Vector;
 import pt.mleiria.machinelearning.preprocess.DataSet2Matrix;
 import pt.mleiria.machinelearning.preprocess.FeatNormMeanStdev;
 import pt.mleiria.machinelearning.preprocess.FeatureNormalization;
@@ -30,7 +31,7 @@ public class GradientDescentTest extends TestCase {
     private Matrix a;
     private Matrix aMulti;
     private Matrix featuresX;
-    private Matrix outputY;
+    private Vector outputY;
     final static String path = EnvSettings.DATA_DIR;
     private GenericDataSet ds;
 
@@ -50,7 +51,7 @@ public class GradientDescentTest extends TestCase {
 
             Matrix[] splitedM = aMulti.split(1);
             featuresX = splitedM[0];
-            outputY = splitedM[1];
+            outputY = splitedM[1].getColumn(0);
 
         } catch (Exception ex) {
             mlearningLog.error(ex);
@@ -84,9 +85,9 @@ public class GradientDescentTest extends TestCase {
         gd.evaluate();
         IOUtils.saveArrayToFile(path + "JGDM.txt", gd.getCostHistory(), "JGM", "NUMERIC");
         mlearningLog.info("Cost History \n" + ViewUtils.showArrayContents(gd.getCostHistory()));
-        Assert.assertEquals(334302.06399327697, gd.getTheta().component(0, 0));
-        Assert.assertEquals(100087.11600584642, gd.getTheta().component(1, 0));
-        Assert.assertEquals(3673.548450928262, gd.getTheta().component(2, 0));
+        Assert.assertEquals(334302.06399327697, gd.getTheta().component(0));
+        Assert.assertEquals(100087.11600584642, gd.getTheta().component(1));
+        Assert.assertEquals(3673.548450928262, gd.getTheta().component(2));
         mlearningLog.info("END Gradient Descent...");
 
     }
@@ -97,7 +98,8 @@ public class GradientDescentTest extends TestCase {
         double precision = 0.00001;
         final Matrix[] splitedM = a.split(1);
         final Matrix featuresX = splitedM[0];
-        final Matrix outputY = splitedM[1];
+        final Vector outputY = splitedM[1].getColumn(0);
+        
         GradientDescent gd = new GradientDescent(featuresX, outputY, alpha);
         gd.setMaximumIterations(numIter);
         gd.setDesiredPrecision(precision);
@@ -105,8 +107,8 @@ public class GradientDescentTest extends TestCase {
         final double[] costH = gd.getCostHistory();
         IOUtils.saveArrayToFile(path + "JGD.txt", costH, "JG", "NUMERIC");
         Assert.assertEquals(32.072733877455654, costH[0]);
-        Assert.assertEquals(-3.63029143940436, gd.getTheta().component(0, 0));
-        Assert.assertEquals(1.166362350335582, gd.getTheta().component(1, 0));
+        Assert.assertEquals(-3.63029143940436, gd.getTheta().component(0));
+        Assert.assertEquals(1.166362350335582, gd.getTheta().component(1));
 
         double expected = 4519.7678677017675;
         double[][] predict = new double[1][2];
@@ -115,7 +117,7 @@ public class GradientDescentTest extends TestCase {
         Matrix m = new Matrix(predict);
         mlearningLog.info("Final Theta " + gd.getTheta().toString());
         mlearningLog.info("Prediction Matrix \n" + m.toString());
-        Assert.assertEquals(expected, m.multiply(gd.getTheta()).component(0, 0) * 10000.0);
+        Assert.assertEquals(expected, m.product(gd.getTheta()).component(0) * 10000.0);
 
     }
 

@@ -5,7 +5,10 @@
  */
 package pt.mleiria.ml.core;
 
+import java.util.HashMap;
+import pt.mleiria.ml.feature.Feature;
 import java.util.List;
+import java.util.Map;
 import org.apache.log4j.Logger;
 import pt.mleiria.LogTypes;
 
@@ -16,6 +19,10 @@ import pt.mleiria.LogTypes;
 public abstract class GenericDataSet {
 
     protected static final Logger datafilesLog = Logger.getLogger(LogTypes.DATAFILES_LOG);
+    /**
+     * 
+     */
+    protected Map<Integer, String> errorLines = new HashMap<>();
 
     /**
      *
@@ -93,5 +100,13 @@ public abstract class GenericDataSet {
             }
         }
         throw new IllegalArgumentException("Feature name:" + fname + " not found.");
+    }
+    /**
+     * Lines not processed
+     * @param index
+     * @param line 
+     */
+    public void addErrorLine(int index, String line){
+        errorLines.put(index, line);
     }
 }

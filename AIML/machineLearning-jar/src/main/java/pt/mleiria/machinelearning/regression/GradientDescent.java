@@ -1,12 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package pt.mleiria.machinelearning.regression;
 
 import pt.mleiria.machinelearning.iterations.IteratorProcessor;
 import pt.mleiria.machinelearning.matrixAlgebra.Matrix;
+import pt.mleiria.machinelearning.matrixAlgebra.Vector;
 
 /**
  *
@@ -15,8 +11,8 @@ import pt.mleiria.machinelearning.matrixAlgebra.Matrix;
 public class GradientDescent extends IteratorProcessor {
 
     private Matrix featuresX;
-    private Matrix outputY;
-    private Matrix theta;
+    private Vector outputY;
+    private Vector theta;
     private double alpha;
     private final int dataSize;
     private double[] costHistory;
@@ -26,11 +22,11 @@ public class GradientDescent extends IteratorProcessor {
      * @param outputY
      * @param alpha 
      */
-    public GradientDescent(Matrix featuresX, Matrix outputY, double alpha) {
+    public GradientDescent(Matrix featuresX, Vector outputY, double alpha) {
         this.featuresX = featuresX;
         this.outputY = outputY;
         this.alpha = alpha;
-        this.dataSize = outputY.rows();
+        this.dataSize = outputY.dimension();
         
         
     }
@@ -41,7 +37,7 @@ public class GradientDescent extends IteratorProcessor {
     public void initializeIterations() {
         costHistory = new double[getMaximumIterations() + 1];
         setFeaturesX(featuresX.addOnes());
-        setTheta(new Matrix(featuresX.columns(), 1));
+        setTheta(new Vector(featuresX.columns()));
         computeCost();
     }
     /**
@@ -49,12 +45,12 @@ public class GradientDescent extends IteratorProcessor {
      */
     private void computeCost() {
         double coeff = 1.0 / (2.0 * dataSize);
-        final Matrix a = featuresX.multiply(theta);
-        final Matrix b = a.subtract(outputY);
-        final Matrix c = b.transpose();
-        final Matrix d = c.multiply(b);
-        final Matrix result = d.multiply(coeff);
-        costHistory[iterations] = result.component(0, 0);
+        final Vector a = featuresX.product(theta);
+        final Vector b = a.subtract(outputY);
+        //final Matrix c = b.transpose();
+        final double d = b.product(b);
+        final double result = d * coeff;
+        costHistory[iterations] = result;
     }
 
     /**
@@ -70,11 +66,11 @@ public class GradientDescent extends IteratorProcessor {
     @Override
     public double evaluateIteration() {
         double coeff = (alpha / (double) dataSize);
-        Matrix b = featuresX.multiply(theta);
-        Matrix c = b.subtract(outputY);
+        Vector b = featuresX.product(theta);
+        Vector c = b.subtract(outputY);
         Matrix d = featuresX.transpose();
-        Matrix e = d.multiply(c);
-        Matrix f = e.multiply(coeff);
+        Vector e = d.product(c);
+        Vector f = e.product(coeff);
         theta = theta.subtract(f);
         computeCost();
         double precision = costHistory[iterations] - costHistory[iterations - 1];
@@ -98,28 +94,28 @@ public class GradientDescent extends IteratorProcessor {
     /**
      * @return the outputY
      */
-    public Matrix getOutputY() {
+    public Vector getOutputY() {
         return outputY;
     }
 
     /**
      * @param outputY the outputY to set
      */
-    public void setOutputY(Matrix outputY) {
+    public void setOutputY(Vector outputY) {
         this.outputY = outputY;
     }
 
     /**
      * @return the theta
      */
-    public Matrix getTheta() {
+    public Vector getTheta() {
         return theta;
     }
 
     /**
      * @param theta the theta to set
      */
-    public void setTheta(Matrix theta) {
+    public void setTheta(Vector theta) {
         this.theta = theta;
     }
 

@@ -88,7 +88,31 @@ public class Vector {
         }
         return new Vector(newComponents);
     }
-
+    /**
+     * 
+     * @param v
+     * @return 
+     */
+    public Vector subtract(Vector v){
+        v = v.product(-1);
+        return add(v);
+    }
+    /**
+     * @return Matrix	tensor product with the specified vector
+     * @param v Vector	second vector to build tensor product
+     * with.
+     */
+    public Matrix tensorProduct(Vector v) {
+        int n = dimension();
+        int m = v.dimension();
+        double[][] newComponents = new double[n][m];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                newComponents[i][j] = components[i] * v.components[j];
+            }
+        }
+        return new Matrix(newComponents);
+    }
     /**
      * Sets all components of the receiver to 0.
      */
@@ -230,9 +254,9 @@ public class Vector {
      * @param a Matrix
      */
     protected Vector secureProduct(final Matrix a) {
-        int n = a.rows();
-        int m = a.columns();
-        double[] vectorComponents = new double[m];
+        final int n = a.rows();
+        final int m = a.columns();
+        final double[] vectorComponents = new double[m];
         for (int j = 0; j < m; j++) {
             vectorComponents[j] = 0;
             for (int i = 0; i < n; i++) {
@@ -242,6 +266,21 @@ public class Vector {
         return new Vector(vectorComponents);
     }
 
+    /**
+     * Creates a matrix with random elements uniformly distributed on the
+     * interval (0, 1).
+     *
+     * @return Vector
+     */
+    public Vector rand() {
+        final int m = dimension();
+        final double[] v = new double[m];
+        for (int i = 0; i < m; i++) {
+            v[i] = Math.random();
+            }
+        return new Vector(v);
+    }
+    
     /**
      * @return double[]	a copy of the components of the receiver.
      */

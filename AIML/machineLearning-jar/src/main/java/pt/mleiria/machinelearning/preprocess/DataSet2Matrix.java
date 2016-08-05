@@ -8,8 +8,8 @@ package pt.mleiria.machinelearning.preprocess;
 import java.util.List;
 import pt.mleiria.machinelearning.matrixAlgebra.Matrix;
 import pt.mleiria.ml.core.DataType;
-import pt.mleiria.ml.core.Feature;
-import pt.mleiria.ml.core.NumericalAttribute;
+import pt.mleiria.ml.feature.Feature;
+import pt.mleiria.ml.attribute.NumericalAttribute;
 
 /**
  *

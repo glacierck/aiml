@@ -5,6 +5,9 @@
  */
 package pt.mleiria.ml.core;
 
+import pt.mleiria.ml.feature.Feature;
+import pt.mleiria.ml.attribute.AttributeClient;
+import pt.mleiria.ml.attribute.AttributeFactory;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -12,6 +15,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import pt.mleiria.LogTypes;
+import pt.mleiria.ml.attribute.Attribute;
+import pt.mleiria.ml.attribute.AttributeMatcher;
+import pt.mleiria.utils.viewutils.ViewUtils;
 
 /**
  *
@@ -98,7 +104,14 @@ public class TextDataSet extends GenericDataSet {
                     final String[] aux = line.split(separator);
                     featureTypes = new DataType[aux.length];
                     for (int i = 0; i < aux.length; i++) {
-                        featureTypes[i] = DataType.valueOf(aux[i].toUpperCase());
+                        try{
+                            featureTypes[i] = DataType.valueOf(aux[i].toUpperCase());
+                        }catch(IllegalArgumentException e){
+                            final DataType dt = new AttributeClient((new AttributeFactory())).discover(aux[i].toUpperCase());
+                            featureTypes[i] = dt;
+                            datafilesLog.debug("Value:["+aux[i].toUpperCase() +"] Data Type:[" + dt + "]");
+                        }
+                        
                         featureList.get(i).setFeatureType(featureTypes[i]);
                     }
 
@@ -110,7 +123,12 @@ public class TextDataSet extends GenericDataSet {
                      * Process Data
                      */
                     final String[] rawData = line.split(separator);
-                    processData(rawData);
+                    if(rawData.length != featureTypes.length){
+                        datafilesLog.debug("Error Line:["+line+"]");
+                    }else{
+                        processData(rawData);
+                    }
+                    
                 }
                 lineCount++;
             }

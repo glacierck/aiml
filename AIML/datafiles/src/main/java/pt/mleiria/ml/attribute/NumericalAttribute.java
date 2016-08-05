@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pt.mleiria.ml.core;
+package pt.mleiria.ml.attribute;
 
 /**
  *
@@ -35,6 +35,10 @@ public class NumericalAttribute extends Attribute {
      */
     @Override
     public void setValue(final String value) {
-        this.value = Double.parseDouble(value);
+        try{
+            this.value = Double.parseDouble(value);
+        }catch(NumberFormatException nfe){
+            this.value = AttributeMatcher.convertToDouble(value);
+        }
     }
 }

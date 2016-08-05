@@ -99,7 +99,6 @@ public class ColumnStatistics {
         }else{
             return sortedArr[dimension/2 + 1];
         }
-        
     }
 
 }

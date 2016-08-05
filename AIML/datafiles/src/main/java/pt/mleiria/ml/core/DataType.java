@@ -10,7 +10,7 @@ package pt.mleiria.ml.core;
  * @author manuel
  */
 public enum DataType {
-    NOMINAL, NUMERIC;
+    NOMINAL, NUMERIC, BOOLEAN, INTEGER;
     
     
         

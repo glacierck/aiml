@@ -3,12 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pt.mleiria.ml.core;
+package pt.mleiria.ml.feature;
 
+import pt.mleiria.ml.attribute.NominalAttribute;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import pt.mleiria.ml.attribute.Attribute;
+import pt.mleiria.ml.core.DataType;
 
 /**
  *

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pt.mleiria.ml.core;
+package pt.mleiria.ml.attribute;
 
 /**
  * This is the product of the factory

@@ -254,6 +254,42 @@ public class Matrix {
     }
 
     /**
+     * Computes the product of the matrix with a vector.
+     *
+     * @return Vector
+     * @param v Vector
+     */
+    public Vector product(Vector v) {
+        int n = this.rows();
+        int m = this.columns();
+        if (v.dimension() != m) {
+            throw new IllegalArgumentException("Product error: " + n + " by " + m
+                    + " matrix cannot by multiplied with vector of dimension "
+                    + v.dimension());
+        }
+        return secureProduct(v);
+    }
+
+    /**
+     * Computes the product of the matrix with a vector.
+     *
+     * @return Vector
+     * @param v Vector
+     */
+    protected Vector secureProduct(Vector v) {
+        int n = this.rows();
+        int m = this.columns();
+        double[] vectorComponents = new double[n];
+        for (int i = 0; i < n; i++) {
+            vectorComponents[i] = 0;
+            for (int j = 0; j < m; j++) {
+                vectorComponents[i] += components[i][j] * v.components[j];
+            }
+        }
+        return new Vector(vectorComponents);
+    }
+
+    /**
      * @param matrix
      * @return double[][] The components of the product of the receiver with the
      * supplied matrix
@@ -308,27 +344,44 @@ public class Matrix {
         return result;
 
     }
+
     /**
-     * Splits the receiver in tow Matrices
-     * Matrix[0] is the train Matrix
+     *
+     * @param colIndex
+     * @return a Column vector
+     */
+    public Vector getColumn(final int colIndex) {
+        if (colIndex > columns() || colIndex < 0) {
+            throw new IllegalArgumentException("Column index out of range.");
+        }
+        final double[] vComps = new double[rows()];
+        for (int i = 0; i < rows(); i++) {
+            vComps[i] = component(i, colIndex);
+        }
+        return new Vector(vComps);
+    }
+
+    /**
+     * Splits the receiver in tow Matrices Matrix[0] is the train Matrix
      * Matrix[1] is the test Matrix
+     *
      * @param percentageOfTrainingData
      * @return Matrix[2]
      */
-    public Matrix[] trainTestSplit(double percentageOfTrainingData){
+    public Matrix[] trainTestSplit(double percentageOfTrainingData) {
         final int rows = rows();
         final int cols = columns();
         final int dim = (int) (rows() * percentageOfTrainingData);
-        
+
         double[][] train = new double[dim][cols];
-        double[][] test = new double[rows-dim][cols];
-                
-        for(int i = 0; i < rows; i++){
-            for (int j = 0; j < cols; j++){
-                if(i < dim){
-                    train[i][j] = components[i][ j];
-                }else{
-                    test[i-dim][j] = components[i][j];
+        double[][] test = new double[rows - dim][cols];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (i < dim) {
+                    train[i][j] = components[i][j];
+                } else {
+                    test[i - dim][j] = components[i][j];
                 }
             }
         }
@@ -443,47 +496,5 @@ public class Matrix {
             }
         }
         return new Matrix(components);
-    }
-
-    /**
-     *
-     * @param colIndex
-     * @return the column specified by the colIndex parameter
-     */
-    public double[] getColumn(int colIndex) {
-        int n = rows();
-        if (colIndex > columns()) {
-            throw new IllegalArgumentException("Column Index provided is greater than matrix number of columns");
-        }
-        double[] colArray = new double[n];
-        for (int i = 0; i < n; i++) {
-            colArray[i] = component(i, colIndex);
-        }
-        return colArray;
-    }
-
-    public static void main(String[] args) {
-        
-        double[][] components = new double[4][4];
-        components[0][0] = 16;
-        components[0][1] = 2;
-        components[0][2] = 3;
-        components[0][3] = 13;
-        components[1][0] = 5;
-        components[1][1] = 11;
-        components[1][2] = 10;
-        components[1][3] = 8;
-        components[2][0] = 9;
-        components[2][1] = 7;
-        components[2][2] = 6;
-        components[2][3] = 12;
-        components[3][0] = 4;
-        components[3][1] = 14;
-        components[3][2] = 15;
-        components[3][3] = 1;
-        Matrix m = new Matrix(components);
-        System.out.println(m.toString());
-        Matrix mm = m.sum(1);
-        System.out.println(mm.toString());
     }
 }

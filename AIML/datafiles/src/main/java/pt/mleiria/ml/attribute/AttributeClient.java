@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pt.mleiria.ml.core;
+package pt.mleiria.ml.attribute;
+
+import pt.mleiria.ml.core.DataType;
 
 /**
  * This is the client of the factory
@@ -27,6 +29,10 @@ public class AttributeClient {
      */
     public Attribute getAttribute(DataType dType){
         return factory.createAttribute(dType);
+    }
+    
+    public DataType discover(final String att){
+        return factory.discover(att);
     }
     
     
